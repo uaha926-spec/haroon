@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You... Always</title>
+    <title>A Message For You</title>
     <style>
-        /* --- 🎨 NEW FONTS & REFINED GLOBAL STYLES --- */
+        /* --- 🎨 FONT IMPORTS & GLOBAL STYLES --- */
         @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito+Sans:wght@400;700&family=Dancing+Script:wght@700&display=swap');
 
         :root {
-            --bg-color: #100a1c; /* Deeper background */
-            --glow-color: #ff79c6; /* Soft pink glow */
+            --bg-color: #0d041c;
+            --glow-color-pink: #ff79c6;
+            --glow-color-purple: #bd93f9;
             --text-color: #f8f8f2;
             --moon-color: #f1fa8c;
             --star-color: #ffffff;
-            --cloud-color: rgba(255, 255, 255, 0.04); /* More subtle clouds */
+            --cloud-color: rgba(255, 255, 255, 0.05);
         }
 
         *, *::before, *::after {
@@ -41,51 +42,97 @@
         .background-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
         }
         .stars { position: absolute; width: 100%; height: 100%; }
         .star { position: absolute; background-color: var(--star-color); border-radius: 50%; animation: twinkle 7s infinite ease-in-out; box-shadow: 0 0 6px #fff, 0 0 12px #fff; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(0.6); } 50% { opacity: 1; transform: scale(1); } }
         
         .moon { 
-            position: absolute; top: 10%; right: 15%; width: 70px; height: 70px; background-color: var(--moon-color); 
+            position: absolute; top: 8%; right: 12%; width: 70px; height: 70px; background-color: var(--moon-color); 
             border-radius: 50%; 
             box-shadow: 0 0 25px var(--moon-color), 0 0 50px var(--moon-color), 0 0 80px #fff; 
-            animation: moon-glow 5s infinite alternate; 
+            animation: moon-float 8s infinite ease-in-out; 
         }
-        @keyframes moon-glow { from { box-shadow: 0 0 25px var(--moon-color), 0 0 50px var(--moon-color), 0 0 80px #fff; } to { box-shadow: 0 0 35px #fdfd96, 0 0 60px #fdfd96, 0 0 100px #fff; } }
+        @keyframes moon-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         
         .clouds { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .cloud { position: absolute; background: var(--cloud-color); border-radius: 50%; opacity: 0.5; filter: blur(15px); animation: drift linear infinite; }
         @keyframes drift { from { transform: translateX(-300px); } to { transform: translateX(100vw); } }
 
-        .trees { position: absolute; bottom: -5px; left: 0; width: 100%; height: 150px; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="%2306030a" points="0,100 20,20 30,80 50,10 60,60 80,30 100,100"/></svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="%230b0613" points="0,100 15,30 25,70 45,20 55,50 75,40 100,100"/></svg>'); background-repeat: repeat-x; background-position: 0 100%, 50px 100%; background-size: 200px 100px, 150px 80px; z-index: 5; }
+        .trees { 
+            position: absolute; bottom: -10px; left: 0; width: 100%; height: 160px; z-index: 5;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="%2306030a" points="0,100 20,20 30,80 50,10 60,60 80,30 100,100"/></svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="%230b0613" points="0,100 15,30 25,70 45,20 55,50 75,40 100,100"/></svg>'); 
+            background-repeat: repeat-x; background-position: 0 100%, 50px 100%; 
+            background-size: 200px 100px, 150px 80px; 
+            animation: sway 15s infinite ease-in-out;
+            transform-origin: bottom center;
+        }
+        @keyframes sway { 0%, 100% { transform: skewX(-2deg); } 50% { transform: skewX(2deg); } }
 
         /* --- 📄 PAGE CONTAINER & TRANSITIONS --- */
         .page { width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; position: absolute; top: 0; left: 0; opacity: 0; visibility: hidden; transform: scale(1.05); transition: opacity 0.8s ease-in-out, visibility 0.8s, transform 0.8s ease-in-out; }
         .page.active { opacity: 1; visibility: visible; transform: scale(1); }
         
-        /* --- 🐻 PAGE 1: CUTE BEAR --- */
-        .bear { width: 150px; height: 150px; margin-bottom: 20px; animation: bounce 2s infinite ease-in-out; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .handwriting-text { font-family: 'Caveat', cursive; font-size: 2.5rem; color: var(--text-color); text-shadow: 0 0 8px var(--glow-color), 0 0 12px var(--glow-color); margin-bottom: 30px; }
+        /* --- 🐻 PAGE 1: CUTE BEAR SCREEN --- */
+        .bear-container {
+            position: relative;
+            animation: bear-bounce 3s infinite ease-in-out;
+        }
+        .bear { width: 150px; height: 150px; }
+        .bear-shadow {
+            width: 100px; height: 15px; background-color: rgba(0,0,0,0.3);
+            border-radius: 50%; filter: blur(10px);
+            position: absolute; bottom: -10px; left: 50%;
+            transform: translateX(-50%);
+            animation: shadow-pulse 3s infinite ease-in-out;
+        }
+        @keyframes bear-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes shadow-pulse { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; } 50% { transform: translateX(-50%) scale(0.8); opacity: 0.7; } }
         
-        .ok-button { background: transparent; border: 2px solid var(--glow-color); color: var(--text-color); padding: 12px 30px; font-size: 1.2rem; font-family: 'Nunito Sans', sans-serif; font-weight: bold; border-radius: 50px; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; box-shadow: 0 0 10px var(--glow-color), inset 0 0 10px var(--glow-color); z-index: 20; }
-        .ok-button:hover { transform: scale(1.1); background-color: rgba(255, 121, 198, 0.1); box-shadow: 0 0 20px var(--glow-color), inset 0 0 15px var(--glow-color); }
+        .handwriting-text { 
+            font-family: 'Caveat', cursive; font-size: 2.5rem; color: var(--text-color); 
+            text-shadow: 0 0 8px var(--glow-color-pink), 0 0 12px var(--glow-color-pink); 
+            margin-top: 20px; margin-bottom: 30px; animation: text-fade-in 2s ease-out forwards;
+        }
+        @keyframes text-fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- 🤔 PAGE 2: CONFIRMATION --- */
-        .confirmation-text { font-size: 2.2rem; margin-bottom: 40px; text-shadow: 0 0 5px var(--text-color); position: relative; z-index: 20; font-weight: bold; }
-        .yes-button { background-color: var(--glow-color); border: none; color: var(--bg-color); padding: 20px 50px; font-size: 1.8rem; font-weight: bold; font-family: 'Nunito Sans', sans-serif; border-radius: 15px; cursor: pointer; box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color), 0 0 45px #fff; animation: pulse 2s infinite; transition: transform 0.3s ease; position: relative; z-index: 20; }
-        .yes-button:hover { transform: scale(1.05); }
-        @keyframes pulse { 0% { box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color), 0 0 45px #fff; } 50% { box-shadow: 0 0 25px var(--glow-color), 0 0 50px var(--glow-color), 0 0 70px #fff; } 100% { box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color), 0 0 45px #fff; } }
+        .ok-button { 
+            background: transparent; border: 2px solid var(--glow-color-pink); color: var(--text-color); 
+            padding: 12px 35px; font-size: 1.3rem; font-family: 'Nunito Sans', sans-serif; font-weight: bold; 
+            border-radius: 50px; cursor: pointer; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; 
+            box-shadow: 0 0 10px var(--glow-color-pink), inset 0 0 10px var(--glow-color-pink); 
+            z-index: 20; animation: button-pulse 3s infinite;
+        }
+        .ok-button:hover { transform: scale(1.1); background-color: rgba(255, 121, 198, 0.1); box-shadow: 0 0 20px var(--glow-color-pink), inset 0 0 15px var(--glow-color-pink); animation-play-state: paused; }
+        .ok-button:active { transform: scale(0.95); }
+        @keyframes button-pulse { 0%, 100% { box-shadow: 0 0 10px var(--glow-color-pink), inset 0 0 10px var(--glow-color-pink); } 50% { box-shadow: 0 0 18px var(--glow-color-pink), inset 0 0 14px var(--glow-color-pink); } }
 
-        /* --- 🎶 PAGE 3: NEW LYRICS STYLE --- */
+        /* --- 🤔 PAGE 2: CONFIRMATION SCREEN --- */
+        .confirmation-text { 
+            font-size: 2.2rem; margin-bottom: 40px; text-shadow: 0 0 8px var(--glow-color-purple); 
+            position: relative; z-index: 20; font-weight: bold; animation: dreamy-float 5s infinite ease-in-out;
+        }
+        @keyframes dreamy-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        .yes-button { 
+            background-color: var(--glow-color-purple); border: none; color: var(--bg-color); 
+            padding: 20px 50px; font-size: 1.8rem; font-weight: bold; font-family: 'Nunito Sans', sans-serif; 
+            border-radius: 15px; cursor: pointer; 
+            box-shadow: 0 0 15px var(--glow-color-purple), 0 0 30px var(--glow-color-purple), 0 0 45px #fff; 
+            animation: pulse 2.5s infinite; transition: transform 0.3s ease; position: relative; z-index: 20; 
+        }
+        .yes-button:hover { transform: scale(1.1); animation-play-state: paused; }
+        .yes-button:active { transform: scale(0.95); }
+        @keyframes pulse { 0% { box-shadow: 0 0 15px var(--glow-color-purple), 0 0 30px var(--glow-color-purple), 0 0 45px #fff; } 50% { box-shadow: 0 0 25px var(--glow-color-purple), 0 0 50px var(--glow-color-purple), 0 0 70px #fff; } 100% { box-shadow: 0 0 15px var(--glow-color-purple), 0 0 30px var(--glow-color-purple), 0 0 45px #fff; } }
+
+        /* --- 🎶 PAGE 3: LYRICS SCREEN --- */
         #lyrics-container { 
-            font-family: 'Dancing Script', cursive; /* New Cursive Font */
-            font-size: 3.5rem; 
-            color: var(--text-color); 
-            height: 120px; 
-            position: relative; 
-            z-index: 20; 
+            font-family: 'Dancing Script', cursive; font-size: 3.5rem; 
+            color: var(--text-color); height: 120px; 
+            position: relative; z-index: 20; 
+            display: flex; align-items: center; justify-content: center;
         }
         .lyric-line {
             position: absolute; width: 100%; left: 0; text-align: center;
@@ -95,33 +142,18 @@
         .lyric-line.hide { animation: glowOut 0.8s forwards ease-in-out; }
         
         @keyframes glowIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-                text-shadow: 0 0 5px rgba(255,255,255,0.5);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1.1);
-                text-shadow: 0 0 10px #fff, 0 0 20px var(--glow-color), 0 0 35px var(--glow-color);
-            }
+            from { opacity: 0; transform: scale(0.8); text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+            to { opacity: 1; transform: scale(1.1); text-shadow: 0 0 10px #fff, 0 0 20px var(--glow-color-pink), 0 0 35px var(--glow-color-pink); }
         }
         @keyframes glowOut {
-            from {
-                opacity: 1;
-                transform: scale(1.1);
-                text-shadow: 0 0 10px #fff, 0 0 20px var(--glow-color), 0 0 35px var(--glow-color);
-            }
-            to {
-                opacity: 0;
-                transform: scale(0.8);
-                text-shadow: 0 0 5px rgba(255,255,255,0.5);
-            }
+            from { opacity: 1; transform: scale(1.1); text-shadow: 0 0 10px #fff, 0 0 20px var(--glow-color-pink), 0 0 35px var(--glow-color-pink); }
+            to { opacity: 0; transform: scale(0.8); text-shadow: 0 0 5px rgba(255,255,255,0.5); }
         }
 
         /* --- 📱 RESPONSIVE DESIGN --- */
         @media (max-width: 600px) {
             .bear { width: 120px; height: 120px; }
+            .bear-shadow { width: 80px; }
             .handwriting-text { font-size: 2rem; }
             .confirmation-text { font-size: 1.8rem; text-align: center; }
             #lyrics-container { font-size: 2.5rem; }
@@ -132,6 +164,7 @@
 </head>
 <body>
 
+    <!-- 🌃 This container holds all the animated background elements -->
     <div class="background-container">
         <div class="stars" id="stars-container"></div>
         <div class="moon"></div>
@@ -142,28 +175,33 @@
     <main class="main-content">
         <!-- 🟣 PAGE 1 — CUTE ANIMATED BEAR SCREEN -->
         <section id="page1" class="page active">
-            <img src="https://i.pinimg.com/originals/c7/a5/36/c7a5362e493396f5b9671b29a282f65f.gif" alt="Cute Animated Bear" class="bear">
+            <div class="bear-container">
+                <img src="https://i.pinimg.com/originals/c7/a5/36/c7a5362e493396f5b9671b29a282f65f.gif" alt="Cute Animated Bear" class="bear">
+                <div class="bear-shadow"></div>
+            </div>
             <h1 class="handwriting-text">This is only for you..</h1>
-            <button id="ok-button" class="ok-button">OK ❤️</button>
+            <button id="ok-button" class="ok-button">OK</button>
         </section>
 
-        <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN (Stickers Removed) -->
+        <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN -->
         <section id="page2" class="page">
             <h2 class="confirmation-text">Are you sure you want to see?</h2>
             <button id="yes-button" class="yes-button">YES</button>
         </section>
 
-        <!-- 🟢 PAGE 3 — ANIMATED LYRICS DISPLAY (Stickers Removed) -->
+        <!-- 🟢 PAGE 3 — ANIMATED LYRICS DISPLAY -->
         <section id="page3" class="page">
             <div id="lyrics-container"></div>
         </section>
     </main>
     
+    <!-- 🎵 The hidden audio player -->
     <audio id="song" src="./haroon.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
+            // --- ⚙️ ELEMENT SELECTORS --- //
             const page1 = document.getElementById('page1');
             const page2 = document.getElementById('page2');
             const page3 = document.getElementById('page3');
@@ -172,20 +210,24 @@
             const audio = document.getElementById('song');
             const lyricsContainer = document.getElementById('lyrics-container');
 
-            // --- 🎵 LYRIC TIMING (1.5-second delay removed from previous version) --- //
+            // --- 🎵 LYRICS & TIMING DATA --- //
+            // This array holds the text, start time, and duration for each lyric line.
             const lyrics = [
-                { time: 2500, text: "Hathon ke tere apne", duration: 3000 },   // Was 4000
-                { time: 5500, text: "Hathon me le leta hu", duration: 2000 },   // Was 7000
-                { time: 7500, text: "ke taqderein", duration: 2000 },            // Was 9000
-                { time: 9500, text: "Apni sari parh lo", duration: 3000 }      // Was 11000
+                { time: 2000, text: "Hathon ke tere apne", duration: 3000 },
+                { time: 5000, text: "Hathon me le leta hu", duration: 2000 },
+                { time: 7000, text: "ke taqderein", duration: 2000 },
+                { time: 9000, text: "Apni sari parh Lo", duration: 3000 }
             ];
 
             // --- 🔄 PAGE TRANSITION LOGIC --- //
+            
+            // Event listener for the "OK" button on Page 1
             okButton.addEventListener('click', () => {
                 page1.classList.remove('active');
                 page2.classList.add('active');
             });
 
+            // Event listener for the "YES" button on Page 2
             yesButton.addEventListener('click', () => {
                 page2.classList.remove('active');
                 page3.classList.add('active');
@@ -193,21 +235,38 @@
             });
 
             // --- 🎶 LYRICS & AUDIO SYNCHRONIZATION --- //
+            
+            /**
+             * Plays the audio and schedules the display of each lyric line.
+             */
             function startExperience() {
+                // Attempt to play the audio. User interaction should allow this.
                 audio.play().catch(error => console.error("Audio playback failed:", error));
+                
+                // Use setTimeout to schedule each lyric line to appear at the correct time.
                 lyrics.forEach(line => {
                     setTimeout(() => displayLyric(line.text, line.duration), line.time);
                 });
             }
 
+            /**
+             * Displays a single lyric line and schedules its removal.
+             * @param {string} text - The lyric text to show.
+             * @param {number} duration - How long (in ms) the lyric should be visible.
+             */
             function displayLyric(text, duration) {
                 const lyricLine = document.createElement('div');
                 lyricLine.className = 'lyric-line';
                 lyricLine.textContent = text;
+                
+                // Clear any previous lyrics and add the new one
                 lyricsContainer.innerHTML = '';
                 lyricsContainer.appendChild(lyricLine);
 
+                // A tiny delay ensures the CSS animation triggers correctly
                 setTimeout(() => lyricLine.classList.add('show'), 50);
+                
+                // Schedule the fade-out animation just before the line's duration ends
                 setTimeout(() => {
                     lyricLine.classList.remove('show');
                     lyricLine.classList.add('hide');
@@ -215,11 +274,21 @@
             }
             
             // --- 🚪 EXIT LOGIC AFTER SONG ENDS --- //
+            
+            // When the audio finishes playing, fade out the entire page.
             audio.addEventListener('ended', () => {
                 document.body.classList.add('exiting');
             });
 
             // --- 🌌 DYNAMIC BACKGROUND GENERATION --- //
+            
+            /**
+             * A helper function to create and place dynamic elements like stars and clouds.
+             * @param {HTMLElement} container - The parent element.
+             * @param {number} count - The number of elements to create.
+             * @param {string} className - The CSS class to apply to each element.
+             * @param {Function} randomizer - A function to apply random styles.
+             */
             function generateDynamicElements(container, count, className, randomizer) {
                 for (let i = 0; i < count; i++) {
                     const el = document.createElement('div');
@@ -228,17 +297,21 @@
                     container.appendChild(el);
                 }
             }
-            // Generate more stars
+            
+            // Generate Stars
             const starsContainer = document.getElementById('stars-container');
             generateDynamicElements(starsContainer, 150, 'star', (el) => {
                 const size = Math.random() * 2.5 + 1;
                 el.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation-delay:${Math.random()*7}s; animation-duration:${Math.random()*5+5}s;`;
             });
-            // Generate slower clouds
+            
+            // Generate Clouds
             const cloudsContainer = document.getElementById('clouds-container');
             generateDynamicElements(cloudsContainer, 12, 'cloud', (el) => {
                 const size = Math.random() * 200 + 80;
-                el.style.cssText = `width:${size*1.5}px; height:${size}px; top:${Math.random()*25}%; left:${Math.random()*100}%; animation-duration:${Math.random()*60+80}s; animation-delay:-${Math.random()*80}s;`;
+                // Start clouds off-screen for a more natural entry
+                const startPosition = -300 + (Math.random() * 600);
+                el.style.cssText = `width:${size*1.5}px; height:${size}px; top:${Math.random()*25}%; left:${startPosition}px; animation-duration:${Math.random()*60+80}s; animation-delay:-${Math.random()*80}s;`;
             });
         });
     </script>
