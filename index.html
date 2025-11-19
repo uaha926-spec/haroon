@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Whisper For You</title>
+    <title>A Midnight Bloom For You</title>
     <style>
-        /* --- 🎨 "WHISPERING DAWN" THEME & FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Great+Vibes&display=swap');
+        /* --- 🎨 NEW "MIDNIGHT BLOOM" THEME & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400&family=Jost:wght@300;500&display=swap');
 
         :root {
-            --bg-dawn-blue: #232a4a;
-            --bg-dusk-purple: #4a3a5e;
-            --accent-rose: #d683a4;
-            --accent-lilac: #a388b3;
-            --text-ivory: #fdf6f6;
+            --bg-navy: #0a041a;
+            --bloom-magenta: #ff1b8d;
+            --bloom-coral: #ff745d;
+            --text-lavender: #d9cfff;
         }
 
         *, *::before, *::after {
@@ -26,253 +25,276 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: var(--bg-dusk-purple);
-            font-family: 'Playfair Display', serif; /* Elegant UI Font */
-            color: var(--text-ivory);
-            transition: opacity 3s ease-in-out;
+            background-color: var(--bg-navy);
+            font-family: 'Jost', sans-serif; /* New Clean UI Font */
+            color: var(--text-lavender);
+            transition: opacity 2.5s ease-in-out;
         }
 
-        body.is-exiting {
+        body.final-fade-out {
             opacity: 0;
         }
 
-        /* --- 🌃 "AURORA" BACKGROUND --- */
-        .aurora-background {
+        /* --- 🌃 NEW "BLOOMING" BACKGROUND --- */
+        .bloom-background {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-            background: linear-gradient(125deg, var(--bg-dawn-blue), var(--bg-dusk-purple), var(--accent-rose));
-            background-size: 400% 400%;
-            animation: aurora-shift 25s ease infinite;
+            overflow: hidden;
         }
-        @keyframes aurora-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .bloom-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(60px);
+            animation: bloom-and-fade 20s infinite;
+        }
+        @keyframes bloom-and-fade {
+            0%, 100% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.5; }
         }
 
-        /* --- 📄 PAGE CONTAINER & BLURRY TRANSITIONS --- */
-        .view-screen { 
+        /* --- 📄 NEW PAGE CONTAINER & ZOOM TRANSITIONS --- */
+        .page-container { 
             width: 100%; height: 100vh; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; padding: 20px; 
             position: absolute; top: 0; left: 0; z-index: 5;
             opacity: 0; visibility: hidden; 
-            filter: blur(15px);
             transform: scale(1.1);
-            transition: opacity 1.5s ease-out, filter 1.5s ease-out, transform 1.5s ease-out;
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
         }
-        .view-screen.is-active { 
+        .page-container.is-visible { 
             opacity: 1; visibility: visible; 
-            filter: blur(0);
             transform: scale(1);
         }
         
-        /* --- ❤️ PAGE 1: ELEGANT LANDING SCREEN --- */
-        .heart-icon {
-            font-size: 80px;
-            color: var(--accent-rose);
-            text-shadow: 0 0 15px var(--accent-rose), 0 0 30px #fff;
-            animation: gentle-beat 2.5s infinite ease-in-out;
-            margin-bottom: 20px;
+        /* --- 🌸 PAGE 1: BLOOMING ICON SCREEN --- */
+        .glowing-bud {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: var(--bloom-magenta);
+            box-shadow: 0 0 20px var(--bloom-magenta), 0 0 40px var(--bloom-magenta), 0 0 60px var(--bloom-coral);
+            animation: pulse-bud 3s infinite ease-in-out;
+            margin-bottom: 25px;
         }
-        @keyframes gentle-beat {
-            0%, 100% { transform: scale(1); }
-            10%, 30% { transform: scale(0.9); }
-            20% { transform: scale(1.1); }
+        @keyframes pulse-bud {
+            0%, 100% { transform: scale(0.9); box-shadow: 0 0 20px var(--bloom-magenta), 0 0 40px var(--bloom-magenta), 0 0 60px var(--bloom-coral); }
+            50% { transform: scale(1); box-shadow: 0 0 30px var(--bloom-magenta), 0 0 60px var(--bloom-magenta), 0 0 90px var(--bloom-coral); }
         }
 
-        .script-text { 
-            font-family: 'Great Vibes', cursive; /* Script Font */
-            font-size: 3.5rem;
-            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3); 
+        .handwritten-message { 
+            font-family: 'Kalam', cursive; /* New Handwritten Font */
+            font-size: 3rem;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); 
             margin-bottom: 35px;
         }
         
-        /* --- ELEGANT BUTTON STYLE --- */
-        .elegant-button {
-            background: transparent;
-            border: 1px solid rgba(253, 246, 246, 0.5);
-            color: var(--text-ivory); 
-            padding: 12px 35px; font-size: 1.1rem; letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 2px; cursor: pointer; 
-            transition: all 0.4s ease;
+        /* --- NEW ORGANIC BUTTON STYLE --- */
+        .organic-button {
+            background: rgba(10, 4, 26, 0.5);
+            border: 1px solid rgba(217, 207, 255, 0.3);
+            backdrop-filter: blur(5px);
+            color: var(--text-lavender); 
+            padding: 14px 40px; font-size: 1.1rem; letter-spacing: 1px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            cursor: pointer; 
+            transition: all 0.5s ease;
+            animation: morph-border 8s infinite;
         }
-        .elegant-button:hover { 
-            background: rgba(253, 246, 246, 0.1);
-            border-color: var(--text-ivory);
-            letter-spacing: 4px;
+        @keyframes morph-border {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 63% 37% 36% 64% / 54% 53% 47% 46%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+        .organic-button:hover { 
+            border-color: var(--text-lavender);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 27, 141, 0.2);
         }
 
-        .user-handle {
-            position: absolute; bottom: 25px;
-            font-family: 'Montserrat', sans-serif;
+        .ig-handle {
+            position: absolute; bottom: 20px;
             font-size: 0.9rem; font-weight: 300;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         /* --- 🤔 PAGE 2: CONFIRMATION --- */
-        .prompt-text { 
+        .confirmation-prompt { 
             font-size: 2.2rem;
             margin-bottom: 40px; text-align: center;
         }
         
-        /* --- 🎶 "INK BLEED" LYRICS --- */
-        #lyrics-display { 
-            font-family: 'Great Vibes', cursive;
-            font-size: 4rem;
+        /* --- 🎶 PAGE 3: NEW "BLOOM" LYRICS --- */
+        #lyrics-area { 
+            font-family: 'Kalam', cursive;
+            font-size: 3.5rem;
             height: 150px;
             display: flex; align-items: center; justify-content: center;
         }
-        .lyric-text {
+        .lyric-span {
             position: absolute; opacity: 0;
+            text-shadow: 0 0 15px var(--bloom-magenta);
         }
-        .lyric-text.is-shown { animation: ink-bleed-in 1.5s forwards cubic-bezier(0.25, 1, 0.5, 1); }
-        .lyric-text.is-hidden { animation: ink-bleed-out 1.2s forwards ease-in; }
+        .lyric-span.is-blooming { animation: bloom-text-in 1.2s forwards ease; }
+        .lyric-span.is-fading { animation: fade-text-out 1s forwards ease; }
         
-        @keyframes ink-bleed-in {
+        @keyframes bloom-text-in {
             from {
                 opacity: 0;
-                filter: blur(8px);
-                transform: scale(1.1);
-                text-shadow: 0 0 20px rgba(255,255,255,0.5);
+                transform: scale(0.8);
+                letter-spacing: -5px;
             }
             to {
                 opacity: 1;
-                filter: blur(0);
                 transform: scale(1);
-                text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+                letter-spacing: 1px;
             }
         }
-        @keyframes ink-bleed-out {
-            from { opacity: 1; filter: blur(0); }
-            to { opacity: 0; filter: blur(8px); }
+        @keyframes fade-text-out {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
         }
 
         /* --- 😘 FINAL KISS EMOJI SCREEN --- */
-        #final-kiss {
+        #final-emoji-screen {
             position: fixed; inset: 0; z-index: 100;
             display: none; justify-content: center; align-items: center;
             opacity: 0;
-            animation: show-final-kiss 2s forwards;
+            animation: show-kiss 1.5s forwards;
         }
-        #kiss-emoji { 
+        #final-emoji { 
             font-size: 150px; 
-            text-shadow: 0 0 30px var(--accent-rose);
+            text-shadow: 0 0 30px var(--bloom-magenta);
         }
-        @keyframes show-final-kiss { to { opacity: 1; } }
+        @keyframes show-kiss { to { opacity: 1; } }
 
         /* --- 📱 RESPONSIVE DESIGN --- */
         @media (max-width: 600px) {
-            .heart-icon { font-size: 70px; }
-            .script-text { font-size: 2.8rem; }
-            .prompt-text { font-size: 1.8rem; }
-            #lyrics-display { font-size: 2.8rem; }
-            #kiss-emoji { font-size: 100px; }
+            .glowing-bud { width: 60px; height: 60px; }
+            .handwritten-message { font-size: 2.5rem; }
+            .confirmation-prompt { font-size: 1.8rem; }
+            #lyrics-area { font-size: 2.5rem; }
+            #final-emoji { font-size: 100px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="aurora-background"></div>
+    <div class="bloom-background" id="bloom-bg-container"></div>
 
-    <main class="main-container">
-        <!-- 🟣 PAGE 1 — ELEGANT LANDING SCREEN -->
-        <section id="screen1" class="view-screen is-active">
-            <div class="heart-icon">❤️</div>
-            <h1 class="script-text">This is only for you..</h1>
-            <button id="next-button" class="elegant-button">OK</button>
-            <p class="user-handle">@ih4roon</p>
+    <main class="main-content-wrapper">
+        <!-- 🟣 PAGE 1 — LANDING SCREEN -->
+        <section id="page1" class="page-container is-visible">
+            <div class="glowing-bud"></div>
+            <h1 class="handwritten-message">This is only for you..</h1>
+            <button id="ok_btn" class="organic-button">OK</button>
+            <p class="ig-handle">@ih4roon</p>
         </section>
 
         <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN -->
-        <section id="screen2" class="view-screen">
-            <h2 class="prompt-text">Are you sure you want to see?</h2>
-            <button id="confirm-button" class="elegant-button">YES</button>
+        <section id="page2" class="page-container">
+            <h2 class="confirmation-prompt">Are you sure you want to see?</h2>
+            <button id="yes_btn" class="organic-button">YES</button>
         </section>
 
-        <!-- 🟢 PAGE 3 — ANIMATED LYRICS DISPLAY -->
-        <section id="screen3" class="view-screen">
-            <div id="lyrics-display"></div>
+        <!-- 🟢 PAGE 3 — LYRICS SCREEN -->
+        <section id="page3" class="page-container">
+            <div id="lyrics-area"></div>
         </section>
     </main>
     
     <!-- 😘 FINAL KISS EMOJI SCREEN -->
-    <div id="final-kiss">
-        <span id="kiss-emoji">😘</span>
+    <div id="final-emoji-screen">
+        <span id="final-emoji">😘</span>
     </div>
 
-    <audio id="main-song" src="./haroon.mp3" preload="auto"></audio>
+    <audio id="song_player" src="./haroon.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- DOM ELEMENT REFERENCES ---
-            const screen1 = document.getElementById('screen1');
-            const screen2 = document.getElementById('screen2');
-            const screen3 = document.getElementById('screen3');
-            const nextButton = document.getElementById('next-button');
-            const confirmButton = document.getElementById('confirm-button');
-            const audioPlayer = document.getElementById('main-song');
-            const lyricsDisplay = document.getElementById('lyrics-display');
-            const finalKissScreen = document.getElementById('final-kiss');
+            // --- DOM Element References ---
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            const page3 = document.getElementById('page3');
+            const okBtn = document.getElementById('ok_btn');
+            const yesBtn = document.getElementById('yes_btn');
+            const songPlayer = document.getElementById('song_player');
+            const lyricsArea = document.getElementById('lyrics-area');
+            const finalEmojiScreen = document.getElementById('final-emoji-screen');
+            const bloomBgContainer = document.getElementById('bloom-bg-container');
 
-            // --- LYRICS DATA (Timing adjusted to be faster) ---
-            const songLyrics = [
-                { time: 3000, text: "Hathon ke tere apne", duration: 3000 },  // Was 4000
-                { time: 6000, text: "Hathon me le leta hu", duration: 2000 },  // Was 7000
-                { time: 8000, text: "ke taqderein", duration: 2000 },           // Was 9000
-                { time: 10000, text: "Apni sari parh Lo", duration: 3000 }      // Was 11000
+            // --- LYRICS DATA (FASTER TIMING) ---
+            const lyricsData = [
+                { time: 2000, text: "Hathon ke tere apne", duration: 3000 },
+                { time: 5000, text: "Hathon me le leta hu", duration: 2000 },
+                { time: 7000, text: "ke taqderein", duration: 2000 },
+                { time: 9000, text: "Apni sari parh Lo", duration: 3000 }
             ];
 
-            // --- PAGE NAVIGATION LOGIC ---
-            nextButton.addEventListener('click', () => {
-                screen1.classList.remove('is-active');
-                screen2.classList.add('is-active');
+            // --- Page Navigation ---
+            okBtn.addEventListener('click', () => {
+                page1.classList.remove('is-visible');
+                page2.classList.add('is-visible');
             });
 
-            confirmButton.addEventListener('click', () => {
-                screen2.classList.remove('is-active');
-                screen3.classList.add('is-active');
-                beginExperience();
+            yesBtn.addEventListener('click', () => {
+                page2.classList.remove('is-visible');
+                page3.classList.add('is-visible');
+                startExperience();
             });
 
-            // --- MAIN EXPERIENCE FUNCTION ---
-            function beginExperience() {
-                audioPlayer.play().catch(error => console.error("Audio playback failed:", error));
-                songLyrics.forEach(line => {
-                    setTimeout(() => renderLyric(line.text, line.duration), line.time);
+            // --- Main Experience Logic ---
+            function startExperience() {
+                songPlayer.play().catch(err => console.error("Audio Playback Error:", err));
+                lyricsData.forEach(line => {
+                    setTimeout(() => displayLyric(line.text, line.duration), line.time);
                 });
             }
 
-            // --- LYRIC RENDERING ---
-            function renderLyric(text, duration) {
-                const lyricElement = document.createElement('div');
-                lyricElement.className = 'lyric-text';
-                lyricElement.textContent = text;
+            // --- Lyric Display Function ---
+            function displayLyric(text, duration) {
+                const lyricEl = document.createElement('span');
+                lyricEl.className = 'lyric-span';
+                lyricEl.textContent = text;
                 
-                lyricsDisplay.innerHTML = ''; // Clear previous
-                lyricsDisplay.appendChild(lyricElement);
+                lyricsArea.innerHTML = '';
+                lyricsArea.appendChild(lyricEl);
 
-                // A short delay helps CSS animations trigger reliably
-                setTimeout(() => lyricElement.classList.add('is-shown'), 50);
+                setTimeout(() => lyricEl.classList.add('is-blooming'), 50);
                 
-                // Set timeout to hide the lyric
                 setTimeout(() => {
-                    lyricElement.classList.remove('is-shown');
-                    lyricElement.classList.add('is-hidden');
-                }, duration - 500);
+                    lyricEl.classList.remove('is-blooming');
+                    lyricEl.classList.add('is-fading');
+                }, duration - 400);
             }
             
-            // --- EXIT SEQUENCE ---
-            audioPlayer.addEventListener('ended', () => {
-                lyricsDisplay.innerHTML = '';
-                finalKissScreen.style.display = 'flex';
+            // --- Exit Sequence ---
+            songPlayer.addEventListener('ended', () => {
+                lyricsArea.innerHTML = '';
+                finalEmojiScreen.style.display = 'flex';
 
-                // Wait 2 seconds with the kiss emoji, then fade out the page
                 setTimeout(() => {
-                    document.body.classList.add('is-exiting');
+                    document.body.classList.add('final-fade-out');
                 }, 2000);
             });
 
+            // --- Dynamic Background Generation ---
+            function createBlooms() {
+                const colors = ['var(--bloom-magenta)', 'var(--bloom-coral)'];
+                for (let i = 0; i < 10; i++) {
+                    const bloom = document.createElement('div');
+                    const size = Math.random() * 300 + 100;
+                    bloom.className = 'bloom-shape';
+                    bloom.style.width = `${size}px`;
+                    bloom.style.height = `${size}px`;
+                    bloom.style.top = `${Math.random() * 100}%`;
+                    bloom.style.left = `${Math.random() * 100}%`;
+                    bloom.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    bloom.style.animationDelay = `${Math.random() * 20}s`;
+                    bloom.style.animationDuration = `${Math.random() * 15 + 15}s`;
+                    bloomBgContainer.appendChild(bloom);
+                }
+            }
+            createBlooms();
         });
     </script>
 </body>
