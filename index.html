@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Serene Message For You</title>
+    <title>A Message For You</title>
     <style>
-        /* --- 🎨 NEW "SERENE MEADOW" THEME & FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Lato:wght@300;400&display=swap');
+        /* --- 🎨 NEW "WHISPERING COSMOS" THEME & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Lato:wght@300;400&display=swap');
 
         :root {
-            --bg-meadow-dark: #1a2a22;
-            --bg-meadow-light: #2d4a32;
-            --accent-gold: #daa520;
-            --text-cream: #faf3e0;
+            --bg-deep-indigo: #0f0c29;
+            --bg-mid-purple: #302b63;
+            --bg-dark-teal: #24243e;
+            --accent-glow: #e2d1ff;
+            --text-soft: #dcd6f7;
         }
 
         *, *::before, *::after {
@@ -25,270 +26,263 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: linear-gradient(to top, var(--bg-meadow-dark), var(--bg-meadow-light));
+            background: linear-gradient(to top, var(--bg-deep-indigo), var(--bg-mid-purple), var(--bg-dark-teal));
             font-family: 'Lato', sans-serif; /* New Clean UI Font */
-            color: var(--text-cream);
+            color: var(--text-soft);
             transition: opacity 2.5s ease-in-out;
         }
 
-        body.is-fading-out {
+        body.is-exiting {
             opacity: 0;
         }
 
-        /* --- 🌃 NEW "MEADOW" BACKGROUND --- */
-        .meadow-environment {
+        /* --- 🌃 NEW "FANTASY" BACKGROUND --- */
+        .fantasy-background {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
             overflow: hidden;
         }
-        .fireflies-container { position: absolute; width: 100%; height: 100%; }
-        .firefly { 
-            position: absolute; background-color: var(--accent-gold); 
+        .stars-canvas { position: absolute; width: 100%; height: 100%; }
+        .star { 
+            position: absolute; background-color: var(--accent-glow); 
             border-radius: 50%; 
-            box-shadow: 0 0 10px var(--accent-gold), 0 0 20px var(--accent-gold);
-            animation: float-around 15s infinite ease-in-out;
+            animation: twinkle-glow 12s infinite ease-in-out;
         }
-        @keyframes float-around {
-            0%, 100% { transform: translateX(0) translateY(0); opacity: 0; }
-            50% { opacity: 1; }
-            75% { transform: translateX(20vw) translateY(-30vh); }
-            90% { transform: translateX(-10vw) translateY(10vh); }
+        @keyframes twinkle-glow {
+            0%, 100% { opacity: 0.1; box-shadow: 0 0 5px var(--accent-glow); }
+            50% { opacity: 0.8; box-shadow: 0 0 15px var(--accent-glow); }
         }
         
-        .mist-layer {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
-            background: linear-gradient(to top, rgba(26, 42, 34, 0.8), transparent);
-            pointer-events: none;
+        .moon { 
+            position: absolute; top: 15%; right: 15%; width: 60px; height: 60px; 
+            border-radius: 50%;
+            background-color: #fffde7;
+            box-shadow: 0 0 25px #fffde7, 0 0 50px #fffde7;
+            animation: moon-pulse 6s infinite ease-in-out;
         }
-        .grass-silhouette { 
-            position: absolute; bottom: -5px; left: 0; width: 100%; height: 15vh;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 L0 80 C 10 70, 15 50, 20 80 C 25 60, 35 70, 40 80 C 50 60, 60 70, 70 80 C 80 50, 90 70, 100 80 L 100 100 Z" fill="%230e1a14"/></svg>') repeat-x;
-            background-size: 100px 100px;
-            z-index: 10;
+        @keyframes moon-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        
+        .ethereal-rainbow {
+            position: absolute;
+            bottom: 5vh; left: 50%;
+            width: 90vw; height: 45vw; /* 2:1 aspect ratio */
+            max-width: 1200px; max-height: 600px;
+            transform: translateX(-50%);
+            border-radius: 50% 50% 0 0;
+            background: conic-gradient(from 0.5turn at 50% 100%, red, orange, yellow, green, blue, indigo, violet, transparent);
+            opacity: 0;
+            animation: rainbow-fade 20s infinite ease-in-out;
         }
+        @keyframes rainbow-fade { 0%, 100% { opacity: 0; } 50% { opacity: 0.15; } }
 
-        /* --- 📄 NEW PAGE CONTAINER & VERTICAL FADE TRANSITIONS --- */
-        .content-view { 
+        /* --- 📄 NEW PAGE CONTAINER & "REVEAL" TRANSITION --- */
+        .page-view { 
             width: 100%; height: 100vh; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; padding: 20px; 
             position: absolute; top: 0; left: 0; z-index: 5;
-            opacity: 0; visibility: hidden; 
-            transform: translateY(20px);
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            opacity: 0; visibility: hidden;
+            clip-path: circle(0% at 50% 50%);
+            transition: opacity 1.5s ease-out, clip-path 1.5s ease-out;
         }
-        .content-view.is-shown { 
+        .page-view.is-visible { 
             opacity: 1; visibility: visible; 
-            transform: translateY(0);
+            clip-path: circle(75% at 50% 50%);
         }
         
-        /* --- 🦋 PAGE 1: LANDING SCREEN --- */
-        .landing-symbol {
-            font-size: 80px;
-            filter: drop-shadow(0 0 10px var(--accent-gold));
-            animation: flutter 4s infinite ease-in-out;
-            margin-bottom: 20px;
-        }
-        @keyframes flutter {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-        }
-        .greeting-text { 
-            font-family: 'Indie Flower', cursive; /* New Handwritten Font */
+        /* --- 💌 PAGE 1: LANDING SCREEN --- */
+        .fantasy-title { 
+            font-family: 'Caveat Brush', cursive; /* New Painted Font */
             font-size: 3.2rem;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); 
-            margin-bottom: 35px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+            margin-bottom: 40px;
         }
         
-        /* --- NEW SIMPLE & GOLDEN BUTTON STYLE --- */
-        .meadow-button {
-            background: transparent;
-            border: 1px solid rgba(250, 243, 224, 0.5);
-            color: var(--text-cream); 
-            padding: 13px 38px; font-size: 1rem; letter-spacing: 1px;
-            font-weight: 400;
+        /* --- NEW "GLASS" BUTTON STYLE --- */
+        .glass-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(220, 214, 247, 0.3);
+            backdrop-filter: blur(8px);
+            color: var(--text-soft); 
+            padding: 14px 40px; font-size: 1.1rem; letter-spacing: 1px;
             border-radius: 50px; cursor: pointer; 
             transition: all 0.4s ease;
         }
-        .meadow-button:hover { 
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 15px var(--accent-gold);
-            color: var(--accent-gold);
+        .glass-button:hover { 
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 20px rgba(226, 209, 255, 0.5);
+            transform: translateY(-3px);
         }
 
-        .ig-credit {
+        .instagram-credit {
             position: absolute; bottom: 20px;
             font-size: 0.9rem; font-weight: 300;
-            opacity: 0.6;
+            opacity: 0.7; z-index: 10;
         }
 
         /* --- 🤔 PAGE 2: CONFIRMATION --- */
-        .question-text { 
+        .confirmation-question { 
             font-size: 2.2rem;
             margin-bottom: 40px; text-align: center;
         }
         
-        /* --- 🎶 PAGE 3: NEW TYPEWRITER LYRICS --- */
-        #lyric-display-area { 
-            font-family: 'Indie Flower', cursive;
-            font-size: 2.8rem; /* Smaller as requested */
+        /* --- 🎶 PAGE 3: NEW "DRIFTING" LYRICS --- */
+        #lyric-container { 
+            font-family: 'Caveat Brush', cursive;
+            font-size: 3rem; /* Smaller as requested */
             height: 150px;
             display: flex; align-items: center; justify-content: center;
-            text-align: center;
         }
-        .lyric-line-content {
-            position: absolute; opacity: 0;
+        .lyric-line {
+            position: absolute;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
         }
-        .lyric-line-content.is-typing { animation: simple-fade-in 1.5s forwards ease-out; }
-        .lyric-line-content.is-erasing { animation: simple-fade-out 1.2s forwards ease-in; }
-        
-        @keyframes simple-fade-in { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes simple-fade-out { from { opacity: 1; } to { opacity: 0; } }
+        .lyric-line.is-showing {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* --- 😘 FINAL KISS SCREEN --- */
-        #final-message {
+        #final-curtain {
             position: fixed; inset: 0; z-index: 100;
             display: none; justify-content: center; align-items: center;
             opacity: 0;
-            animation: show-final-message 2s forwards;
+            animation: show-final-kiss 2s forwards;
         }
-        #final-kiss-emoji { 
+        #kiss-emoji-final { 
             font-size: 140px; 
-            text-shadow: 0 0 25px #ff5d9e;
+            text-shadow: 0 0 30px #ff7aab;
         }
-        @keyframes show-final-message { to { opacity: 1; } }
+        @keyframes show-final-kiss { to { opacity: 1; } }
 
         /* --- 📱 RESPONSIVE DESIGN --- */
         @media (max-width: 600px) {
-            .landing-symbol { font-size: 70px; }
-            .greeting-text { font-size: 2.6rem; }
-            .question-text { font-size: 1.8rem; }
-            #lyric-display-area { font-size: 2.2rem; }
-            #final-kiss-emoji { font-size: 100px; }
+            .fantasy-title { font-size: 2.8rem; }
+            .confirmation-question { font-size: 1.8rem; }
+            #lyric-container { font-size: 2.4rem; }
+            #kiss-emoji-final { font-size: 100px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="meadow-environment">
-        <div class="fireflies-container" id="fireflies-container"></div>
-        <div class="mist-layer"></div>
-        <div class="grass-silhouette"></div>
+    <div class="fantasy-background">
+        <div class="stars-canvas" id="stars-canvas"></div>
+        <div class="moon"></div>
+        <div class="ethereal-rainbow"></div>
     </div>
 
-    <main class="main-wrapper">
+    <main class="main-content">
         <!-- 🟣 PAGE 1 — LANDING SCREEN -->
-        <section id="view1" class="content-view is-shown">
-            <div class="landing-symbol">🦋</div>
-            <h1 class="greeting-text">This is only for you..</h1>
-            <button id="nextBtn" class="meadow-button">OK</button>
-            <p class="ig-credit">@ih4roon</p>
+        <section id="page-landing" class="page-view is-visible">
+            <h1 class="fantasy-title">This is only for you..</h1>
+            <button id="btn-next" class="glass-button">OK</button>
+            <p class="instagram-credit">@ih4roon</p>
         </section>
 
         <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN -->
-        <section id="view2" class="content-view">
-            <h2 class="question-text">Are you sure you want to see?</h2>
-            <button id="confirmBtn" class="meadow-button">YES</button>
+        <section id="page-confirm" class="page-view">
+            <h2 class="confirmation-question">Are you sure you want to see?</h2>
+            <button id="btn-confirm" class="glass-button">YES</button>
         </section>
 
         <!-- 🟢 PAGE 3 — LYRICS SCREEN -->
-        <section id="view3" class="content-view">
-            <div id="lyric-display-area"></div>
+        <section id="page-lyrics" class="page-view">
+            <div id="lyric-container"></div>
         </section>
     </main>
     
     <!-- 😘 FINAL KISS SCREEN -->
-    <div id="final-message">
-        <span id="final-kiss-emoji">😘</span>
+    <div id="final-curtain">
+        <span id="kiss-emoji-final">😘</span>
     </div>
 
-    <audio id="songAudio" src="./haroon.mp3" preload="auto"></audio>
+    <audio id="song-player" src="./haroon.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- DOM Element References ---
-            const view1 = document.getElementById('view1');
-            const view2 = document.getElementById('view2');
-            const view3 = document.getElementById('view3');
-            const nextBtn = document.getElementById('nextBtn');
-            const confirmBtn = document.getElementById('confirmBtn');
-            const songAudio = document.getElementById('songAudio');
-            const lyricDisplayArea = document.getElementById('lyric-display-area');
-            const finalMessage = document.getElementById('final-message');
-            const firefliesContainer = document.getElementById('fireflies-container');
+            // --- DOM Elements ---
+            const pageLanding = document.getElementById('page-landing');
+            const pageConfirm = document.getElementById('page-confirm');
+            const pageLyrics = document.getElementById('page-lyrics');
+            const btnNext = document.getElementById('btn-next');
+            const btnConfirm = document.getElementById('btn-confirm');
+            const songPlayer = document.getElementById('song-player');
+            const lyricContainer = document.getElementById('lyric-container');
+            const finalCurtain = document.getElementById('final-curtain');
+            const starsCanvas = document.getElementById('stars-canvas');
 
-            // --- LYRICS DATA (Timing adjusted as requested) ---
-            const lyricsContent = [
+            // --- LYRICS DATA (Timing is perfect as per user) ---
+            const lyrics = [
                 { time: 2000, text: "Hathon ke tere apne", duration: 3000 },
-                { time: 5000, text: "Hathon me le leta hu", duration: 2500 }, // Duration increased by 0.5s
-                { time: 7500, text: "ke taqderein", duration: 2000 },         // Start time shifted by 0.5s
-                { time: 9500, text: "Apni sari parh Lo", duration: 3000 }      // Start time shifted by 0.5s
+                { time: 5000, text: "Hathon me le leta hu", duration: 2500 },
+                { time: 7500, text: "ke taqderein", duration: 2000 },
+                { time: 9500, text: "Apni sari parh Lo", duration: 3000 }
             ];
 
             // --- Page Navigation ---
-            nextBtn.addEventListener('click', () => {
-                view1.classList.remove('is-shown');
-                view2.classList.add('is-shown');
+            btnNext.addEventListener('click', () => {
+                pageLanding.classList.remove('is-visible');
+                pageConfirm.classList.add('is-visible');
             });
 
-            confirmBtn.addEventListener('click', () => {
-                view2.classList.remove('is-shown');
-                view3.classList.add('is-shown');
-                startMusicExperience();
+            btnConfirm.addEventListener('click', () => {
+                pageConfirm.classList.remove('is-visible');
+                pageLyrics.classList.add('is-visible');
+                startExperience();
             });
 
             // --- Main Experience Logic ---
-            function startMusicExperience() {
-                songAudio.play().catch(e => console.error("Audio Error:", e));
-                lyricsContent.forEach(line => {
-                    setTimeout(() => showLyric(line.text, line.duration), line.time);
+            function startExperience() {
+                songPlayer.play().catch(e => console.error("Audio could not play:", e));
+                lyrics.forEach(line => {
+                    setTimeout(() => displayLyric(line.text, line.duration), line.time);
                 });
             }
 
             // --- Lyric Display Function ---
-            function showLyric(text, duration) {
-                const lyricElement = document.createElement('p');
-                lyricElement.className = 'lyric-line-content';
-                lyricElement.textContent = text;
+            function displayLyric(text, duration) {
+                const lyricEl = document.createElement('p');
+                lyricEl.className = 'lyric-line';
+                lyricEl.textContent = text;
                 
-                lyricDisplayArea.innerHTML = '';
-                lyricDisplayArea.appendChild(lyricElement);
+                lyricContainer.innerHTML = ''; // Clear previous
+                lyricContainer.appendChild(lyricEl);
 
-                setTimeout(() => lyricElement.classList.add('is-typing'), 50);
+                // Use a short delay to trigger the CSS transition
+                setTimeout(() => lyricEl.classList.add('is-showing'), 50);
                 
-                setTimeout(() => {
-                    lyricElement.classList.remove('is-typing');
-                    lyricElement.classList.add('is-erasing');
-                }, duration - 500);
+                // Hide the lyric before the next one
+                setTimeout(() => lyricEl.classList.remove('is-showing'), duration - 500);
             }
             
             // --- Exit Sequence ---
-            songAudio.addEventListener('ended', () => {
-                lyricDisplayArea.innerHTML = '';
-                finalMessage.style.display = 'flex';
+            songPlayer.addEventListener('ended', () => {
+                lyricContainer.innerHTML = '';
+                finalCurtain.style.display = 'flex';
 
                 setTimeout(() => {
-                    document.body.classList.add('is-fading-out');
+                    document.body.classList.add('is-exiting');
                 }, 2000);
             });
 
-            // --- Dynamic Firefly Generation ---
-            function createFireflies() {
-                for (let i = 0; i < 20; i++) {
-                    const firefly = document.createElement('div');
-                    const size = Math.random() * 3 + 1;
-                    firefly.className = 'firefly';
-                    firefly.style.width = `${size}px`;
-                    firefly.style.height = `${size}px`;
-                    firefly.style.top = `${Math.random() * 80 + 10}%`;
-                    firefly.style.left = `${Math.random() * 80 + 10}%`;
-                    const delay = Math.random() * 15;
-                    const duration = Math.random() * 10 + 10;
-                    firefly.style.animationDelay = `${delay}s`;
-                    firefly.style.animationDuration = `${duration}s`;
-                    firefliesContainer.appendChild(firefly);
+            // --- Dynamic Star Generation ---
+            function createStars() {
+                for (let i = 0; i < 150; i++) {
+                    const star = document.createElement('div');
+                    const size = Math.random() * 2.5 + 1;
+                    star.className = 'star';
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 12}s`;
+                    star.style.animationDuration = `${Math.random() * 8 + 8}s`;
+                    starsCanvas.appendChild(star);
                 }
             }
-            createFireflies();
+            createStars();
         });
     </script>
 </body>
