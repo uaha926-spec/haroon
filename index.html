@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Cosmic Dream For You</title>
     <style>
-        /* --- 🎨 NEW "COSMIC DREAM" THEME & FONTS --- */
+        /* --- 🎨 "COSMIC DREAM" THEME & FONTS --- */
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;500&display=swap');
 
         :root {
@@ -26,7 +26,7 @@
             height: 100%;
             overflow: hidden;
             background-color: var(--bg-deep-space);
-            font-family: 'Montserrat', sans-serif; /* New UI Font */
+            font-family: 'Montserrat', sans-serif;
             color: var(--text-light);
             transition: opacity 2.5s ease-in-out;
         }
@@ -35,7 +35,7 @@
             opacity: 0;
         }
 
-        /* --- 🌃 NEW "COSMIC" BACKGROUND & ANIMATIONS --- */
+        /* --- 🌃 "COSMIC" BACKGROUND & ANIMATIONS --- */
         .background-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
             background: linear-gradient(to top, var(--bg-deep-space) 0%, #1a0f3d 100%);
@@ -68,7 +68,7 @@
         .nebula.two { background: radial-gradient(circle at 80% 30%, var(--glow-cyan), transparent); animation: nebula-drift 35s infinite alternate-reverse; }
         @keyframes nebula-drift { from { transform: translateX(-10%) translateY(5%) scale(1); } to { transform: translateX(10%) translateY(-5%) scale(1.2); } }
         
-        /* --- 📄 NEW PAGE CONTAINER & TRANSITIONS --- */
+        /* --- 📄 PAGE CONTAINER & TRANSITIONS --- */
         .page { 
             width: 100%; height: 100vh; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; padding: 20px; 
@@ -79,7 +79,7 @@
         }
         .page.active { opacity: 1; visibility: visible; transform: scale(1); }
         
-        /* --- 🐻 PAGE 1: EMOJI SCREEN - REDESIGNED --- */
+        /* --- 💖 PAGE 1: EMOJI SCREEN --- */
         .landing-emoji {
             font-size: 100px;
             animation: emoji-float 4s infinite ease-in-out;
@@ -89,13 +89,13 @@
         @keyframes emoji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
         .handwriting-text { 
-            font-family: 'Pacifico', cursive; /* New Handwriting Font */
+            font-family: 'Pacifico', cursive;
             font-size: 2.8rem; color: var(--text-light); 
             text-shadow: 0 0 10px var(--glow-magenta), 0 0 20px var(--glow-cyan); 
             margin-bottom: 40px;
         }
         
-        /* --- NEW HOLOGRAPHIC BUTTON STYLE --- */
+        /* --- "HOLOGRAPHIC" BUTTON STYLE --- */
         .cosmic-button {
             position: relative; background: transparent; border: none;
             color: var(--text-light); padding: 15px 45px; font-size: 1.2rem;
@@ -126,13 +126,13 @@
             opacity: 0.5;
         }
 
-        /* --- 🤔 PAGE 2: CONFIRMATION - REDESIGNED --- */
+        /* --- 🤔 PAGE 2: CONFIRMATION --- */
         .confirmation-text { 
             font-size: 2.4rem; font-weight: 300;
             margin-bottom: 40px; text-align: center;
         }
         
-        /* --- 🎶 PAGE 3: LYRICS - NEW STYLE & ANIMATION --- */
+        /* --- 🎶 PAGE 3: LYRICS --- */
         #lyrics-container { 
             font-family: 'Pacifico', cursive;
             font-size: 3.8rem;
@@ -186,7 +186,6 @@
     </div>
 
     <main class="main-content">
-        <!-- 🟣 PAGE 1 — EMOJI SCREEN (REDESIGNED) -->
         <section id="page1" class="page active">
             <span class="landing-emoji">💖</span>
             <h1 class="handwriting-text">This is only for you..</h1>
@@ -197,7 +196,6 @@
             <p class="instagram-handle">@ih4roon</p>
         </section>
 
-        <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN (REDESIGNED) -->
         <section id="page2" class="page">
             <h2 class="confirmation-text">Are you sure you want to see?</h2>
             <button id="yes-button" class="cosmic-button">
@@ -206,13 +204,11 @@
             </button>
         </section>
 
-        <!-- 🟢 PAGE 3 — ANIMATED LYRICS DISPLAY (REDESIGNED) -->
         <section id="page3" class="page">
             <div id="lyrics-container"></div>
         </section>
     </main>
     
-    <!-- 😘 FINAL EMOJI SCREEN -->
     <div id="end-screen">
         <span id="end-emoji">😘</span>
     </div>
@@ -231,12 +227,12 @@
             const lyricsContainer = document.getElementById('lyrics-container');
             const endScreen = document.getElementById('end-screen');
 
-            // --- 🎵 LYRICS & TIMING DATA (1-second delay included) --- //
+            // --- 🎵 LYRICS & TIMING DATA (1-second delay added as requested) --- //
             const lyrics = [
-                { time: 3000, text: "Hathon ke tere apne", duration: 3000 },
-                { time: 6000, text: "Hathon me le leta hu", duration: 2000 },
-                { time: 8000, text: "ke taqderein", duration: 2000 },
-                { time: 10000, text: "Apni sari parh Lo", duration: 3000 }
+                { time: 4000, text: "Hathon ke tere apne", duration: 3000 },  // Was 3000
+                { time: 7000, text: "Hathon me le leta hu", duration: 2000 },  // Was 6000
+                { time: 9000, text: "ke taqderein", duration: 2000 },           // Was 8000
+                { time: 11000, text: "Apni sari parh Lo", duration: 3000 }     // Was 10000
             ];
 
             // --- 🔄 PAGE TRANSITION LOGIC --- //
@@ -275,10 +271,9 @@
             
             // --- 🚪 EXIT LOGIC AFTER SONG ENDS --- //
             audio.addEventListener('ended', () => {
-                lyricsContainer.innerHTML = ''; // Clear final lyric
-                endScreen.style.display = 'flex'; // Show kiss emoji screen
+                lyricsContainer.innerHTML = '';
+                endScreen.style.display = 'flex';
 
-                // Wait 2 seconds then fade out the whole page
                 setTimeout(() => {
                     document.body.classList.add('exiting');
                 }, 2000);
