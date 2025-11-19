@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Message For You</title>
+    <title>A Cinematic Message</title>
     <style>
-        /* --- 🎨 NEW "WHISPERING COSMOS" THEME & FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Lato:wght@300;400&display=swap');
+        /* --- 🎨 NEW "CINEMATIC NIGHT" THEME & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Roboto:wght@300&display=swap');
 
         :root {
-            --bg-deep-indigo: #0f0c29;
-            --bg-mid-purple: #302b63;
-            --bg-dark-teal: #24243e;
-            --accent-glow: #e2d1ff;
-            --text-soft: #dcd6f7;
+            --bg-deep-blue: #02031a;
+            --glow-cyan: #00d2ff;
+            --text-light-gray: #c9c7d5;
+            --moon-color: #f7f2e4;
         }
 
         *, *::before, *::after {
@@ -26,260 +25,286 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: linear-gradient(to top, var(--bg-deep-indigo), var(--bg-mid-purple), var(--bg-dark-teal));
-            font-family: 'Lato', sans-serif; /* New Clean UI Font */
-            color: var(--text-soft);
-            transition: opacity 2.5s ease-in-out;
+            background: var(--bg-deep-blue);
+            font-family: 'Roboto', sans-serif; /* New Clean UI Font */
+            color: var(--text-light-gray);
+            transition: opacity 3s ease-in-out;
         }
 
-        body.is-exiting {
+        body.is-fading-out {
             opacity: 0;
         }
 
-        /* --- 🌃 NEW "FANTASY" BACKGROUND --- */
-        .fantasy-background {
+        /* --- 🌃 NEW CINEMATIC BACKGROUND --- */
+        .cinematic-backdrop {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
             overflow: hidden;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #02031a 70%);
         }
-        .stars-canvas { position: absolute; width: 100%; height: 100%; }
+        .shooting-stars { position: absolute; width: 100%; height: 100%; }
         .star { 
-            position: absolute; background-color: var(--accent-glow); 
-            border-radius: 50%; 
-            animation: twinkle-glow 12s infinite ease-in-out;
+            position: absolute; background: linear-gradient(-45deg, var(--glow-cyan), rgba(255,255,255,0));
+            border-radius: 999px;
+            filter: drop-shadow(0 0 6px var(--glow-cyan));
+            animation: shooting-star 15s linear infinite;
         }
-        @keyframes twinkle-glow {
-            0%, 100% { opacity: 0.1; box-shadow: 0 0 5px var(--accent-glow); }
-            50% { opacity: 0.8; box-shadow: 0 0 15px var(--accent-glow); }
+        @keyframes shooting-star {
+            from { transform: translateX(0) rotate(135deg); opacity: 1; }
+            to { transform: translateX(-100vw) rotate(135deg); opacity: 1; }
         }
         
         .moon { 
-            position: absolute; top: 15%; right: 15%; width: 60px; height: 60px; 
+            position: absolute; top: 10%; right: 10%; width: 80px; height: 80px; 
             border-radius: 50%;
-            background-color: #fffde7;
-            box-shadow: 0 0 25px #fffde7, 0 0 50px #fffde7;
-            animation: moon-pulse 6s infinite ease-in-out;
+            background: var(--moon-color);
+            box-shadow: 0 0 30px var(--moon-color), 0 0 60px var(--moon-color);
+            animation: subtle-drift 12s infinite ease-in-out;
         }
-        @keyframes moon-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes subtle-drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
         
-        .ethereal-rainbow {
-            position: absolute;
-            bottom: 5vh; left: 50%;
-            width: 90vw; height: 45vw; /* 2:1 aspect ratio */
-            max-width: 1200px; max-height: 600px;
-            transform: translateX(-50%);
-            border-radius: 50% 50% 0 0;
-            background: conic-gradient(from 0.5turn at 50% 100%, red, orange, yellow, green, blue, indigo, violet, transparent);
-            opacity: 0;
-            animation: rainbow-fade 20s infinite ease-in-out;
+        .forest {
+            position: absolute; bottom: -10px; left: 0; width: 100%; height: 25vh;
+            background-repeat: repeat-x;
+            background-position: bottom center;
+            background-size: auto 100%;
+            animation: wind-sway 15s infinite ease-in-out;
+            transform-origin: bottom center;
+            z-index: 10;
         }
-        @keyframes rainbow-fade { 0%, 100% { opacity: 0; } 50% { opacity: 0.15; } }
+        .forest.foreground {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="%2301020f" points="0,100 5,40 10,80 15,30 25,70 35,20 45,60 55,10 65,50 75,25 85,65 95,45 100,100"/></svg>');
+            animation-duration: 12s;
+        }
 
-        /* --- 📄 NEW PAGE CONTAINER & "REVEAL" TRANSITION --- */
-        .page-view { 
+
+        /* --- 📄 NEW PAGE CONTAINER & ZOOM TRANSITION --- */
+        .page { 
             width: 100%; height: 100vh; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; padding: 20px; 
             position: absolute; top: 0; left: 0; z-index: 5;
-            opacity: 0; visibility: hidden;
-            clip-path: circle(0% at 50% 50%);
-            transition: opacity 1.5s ease-out, clip-path 1.5s ease-out;
-        }
-        .page-view.is-visible { 
-            opacity: 1; visibility: visible; 
-            clip-path: circle(75% at 50% 50%);
-        }
-        
-        /* --- 💌 PAGE 1: LANDING SCREEN --- */
-        .fantasy-title { 
-            font-family: 'Caveat Brush', cursive; /* New Painted Font */
-            font-size: 3.2rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
-            margin-bottom: 40px;
-        }
-        
-        /* --- NEW "GLASS" BUTTON STYLE --- */
-        .glass-button {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(220, 214, 247, 0.3);
-            backdrop-filter: blur(8px);
-            color: var(--text-soft); 
-            padding: 14px 40px; font-size: 1.1rem; letter-spacing: 1px;
-            border-radius: 50px; cursor: pointer; 
-            transition: all 0.4s ease;
-        }
-        .glass-button:hover { 
-            border-color: var(--accent-glow);
-            box-shadow: 0 0 20px rgba(226, 209, 255, 0.5);
-            transform: translateY(-3px);
-        }
-
-        .instagram-credit {
-            position: absolute; bottom: 20px;
-            font-size: 0.9rem; font-weight: 300;
-            opacity: 0.7; z-index: 10;
-        }
-
-        /* --- 🤔 PAGE 2: CONFIRMATION --- */
-        .confirmation-question { 
-            font-size: 2.2rem;
-            margin-bottom: 40px; text-align: center;
-        }
-        
-        /* --- 🎶 PAGE 3: NEW "DRIFTING" LYRICS --- */
-        #lyric-container { 
-            font-family: 'Caveat Brush', cursive;
-            font-size: 3rem; /* Smaller as requested */
-            height: 150px;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .lyric-line {
-            position: absolute;
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 0; visibility: hidden; 
+            transform: scale(1.1);
             transition: opacity 1.5s ease-out, transform 1.5s ease-out;
         }
-        .lyric-line.is-showing {
-            opacity: 1;
-            transform: translateY(0);
+        .page.is-showing { opacity: 1; visibility: visible; transform: scale(1); }
+        
+        /* --- ✍️ TEXT & BUTTON STYLES --- */
+        .title-text { 
+            font-family: 'Alex Brush', cursive; /* New Script Font */
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 0 0 10px var(--glow-cyan), 0 0 20px var(--glow-cyan); 
+            margin-bottom: 35px;
+            text-align: center;
+        }
+        .prompt-message {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .cinematic-button {
+            background: transparent; border: none;
+            color: var(--text-light-gray); 
+            padding: 15px 40px; font-size: 1.1rem; letter-spacing: 2px;
+            cursor: pointer; 
+            position: relative;
+            transition: color 0.4s ease;
+        }
+        .cinematic-button::after {
+            content: '';
+            position: absolute;
+            bottom: 5px; left: 50%; transform: translateX(-50%);
+            width: 0%; height: 1px;
+            background-color: var(--glow-cyan);
+            box-shadow: 0 0 5px var(--glow-cyan);
+            transition: width 0.4s ease;
+        }
+        .cinematic-button:hover { color: #fff; }
+        .cinematic-button:hover::after { width: 100%; }
+
+        .username-display {
+            position: absolute;
+            top: 35%; /* Positioned above center */
+            font-size: 1rem;
+            opacity: 0;
+            z-index: 10;
+            transition: opacity 1.5s ease-in-out;
+            color: #fff;
+            text-shadow: 0 0 5px var(--glow-cyan);
+        }
+        #lyrics-page.is-showing .username-display {
+            opacity: 0.8;
         }
 
+        /* --- 🎶 LYRICS --- */
+        #lyric-display-area { 
+            font-family: 'Alex Brush', cursive;
+            font-size: 3.2rem; /* Smaller as requested */
+            height: 150px;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        .lyric-text-line {
+            position: absolute; opacity: 0;
+            transition: opacity 1.5s ease-out;
+            text-shadow: 0 0 8px var(--glow-cyan);
+        }
+        .lyric-text-line.is-visible { opacity: 1; }
+
         /* --- 😘 FINAL KISS SCREEN --- */
-        #final-curtain {
+        #final-overlay {
             position: fixed; inset: 0; z-index: 100;
             display: none; justify-content: center; align-items: center;
-            opacity: 0;
-            animation: show-final-kiss 2s forwards;
+            opacity: 0; animation: show-final-kiss 2s forwards;
         }
-        #kiss-emoji-final { 
-            font-size: 140px; 
-            text-shadow: 0 0 30px #ff7aab;
-        }
+        #final-kiss-emoji { font-size: 140px; text-shadow: 0 0 25px #ff5d9e; }
         @keyframes show-final-kiss { to { opacity: 1; } }
 
         /* --- 📱 RESPONSIVE DESIGN --- */
         @media (max-width: 600px) {
-            .fantasy-title { font-size: 2.8rem; }
-            .confirmation-question { font-size: 1.8rem; }
-            #lyric-container { font-size: 2.4rem; }
-            #kiss-emoji-final { font-size: 100px; }
+            .title-text { font-size: 3.2rem; }
+            .prompt-message { font-size: 1.4rem; }
+            #lyric-display-area { font-size: 2.6rem; }
+            .moon { width: 60px; height: 60px; }
+            #final-kiss-emoji { font-size: 100px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="fantasy-background">
-        <div class="stars-canvas" id="stars-canvas"></div>
+    <div class="cinematic-backdrop">
+        <div class="shooting-stars" id="shooting-stars-container"></div>
         <div class="moon"></div>
-        <div class="ethereal-rainbow"></div>
+        <div class="forest foreground"></div>
     </div>
 
-    <main class="main-content">
-        <!-- 🟣 PAGE 1 — LANDING SCREEN -->
-        <section id="page-landing" class="page-view is-visible">
-            <h1 class="fantasy-title">This is only for you..</h1>
-            <button id="btn-next" class="glass-button">OK</button>
-            <p class="instagram-credit">@ih4roon</p>
+    <main class="main-content-wrapper">
+        <!-- Page 1: Initial Welcome -->
+        <section id="welcome-page" class="page is-showing">
+            <h1 class="title-text">This is only for you..</h1>
+            <button id="welcome-btn" class="cinematic-button">OK</button>
         </section>
 
-        <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN -->
-        <section id="page-confirm" class="page-view">
-            <h2 class="confirmation-question">Are you sure you want to see?</h2>
-            <button id="btn-confirm" class="glass-button">YES</button>
+        <!-- Page 2: First Confirmation -->
+        <section id="confirm-page-1" class="page">
+            <p class="prompt-message">Are you sure you want to continue?</p>
+            <button id="confirm-btn-1" class="cinematic-button">Continue</button>
         </section>
 
-        <!-- 🟢 PAGE 3 — LYRICS SCREEN -->
-        <section id="page-lyrics" class="page-view">
-            <div id="lyric-container"></div>
+        <!-- Page 3: Second Confirmation -->
+        <section id="confirm-page-2" class="page">
+            <p class="prompt-message">Are you sure? Are you sure?</p>
+            <button id="confirm-btn-2" class="cinematic-button">Yes, I'm Sure!</button>
+        </section>
+        
+        <!-- Page 4: Final Prompt -->
+        <section id="final-prompt-page" class="page">
+             <p class="prompt-message">Let's see...</p>
+            <button id="final-prompt-btn" class="cinematic-button">Show me</button>
+        </section>
+
+        <!-- Page 5: Lyrics -->
+        <section id="lyrics-page" class="page">
+            <p class="username-display">@ih4roon</p>
+            <div id="lyric-display-area"></div>
         </section>
     </main>
     
-    <!-- 😘 FINAL KISS SCREEN -->
-    <div id="final-curtain">
-        <span id="kiss-emoji-final">😘</span>
+    <div id="final-overlay">
+        <span id="final-kiss-emoji">😘</span>
     </div>
 
-    <audio id="song-player" src="./haroon.mp3" preload="auto"></audio>
+    <audio id="audio-player" src="./haroon.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
             // --- DOM Elements ---
-            const pageLanding = document.getElementById('page-landing');
-            const pageConfirm = document.getElementById('page-confirm');
-            const pageLyrics = document.getElementById('page-lyrics');
-            const btnNext = document.getElementById('btn-next');
-            const btnConfirm = document.getElementById('btn-confirm');
-            const songPlayer = document.getElementById('song-player');
-            const lyricContainer = document.getElementById('lyric-container');
-            const finalCurtain = document.getElementById('final-curtain');
-            const starsCanvas = document.getElementById('stars-canvas');
+            const pages = {
+                welcome: document.getElementById('welcome-page'),
+                confirm1: document.getElementById('confirm-page-1'),
+                confirm2: document.getElementById('confirm-page-2'),
+                finalPrompt: document.getElementById('final-prompt-page'),
+                lyrics: document.getElementById('lyrics-page')
+            };
+            const buttons = {
+                welcome: document.getElementById('welcome-btn'),
+                confirm1: document.getElementById('confirm-btn-1'),
+                confirm2: document.getElementById('confirm-btn-2'),
+                finalPrompt: document.getElementById('final-prompt-btn')
+            };
+            const audioPlayer = document.getElementById('audio-player');
+            const lyricDisplayArea = document.getElementById('lyric-display-area');
+            const finalOverlay = document.getElementById('final-overlay');
+            const shootingStarsContainer = document.getElementById('shooting-stars-container');
 
-            // --- LYRICS DATA (Timing is perfect as per user) ---
-            const lyrics = [
+            // --- LYRICS DATA (Timing is perfect and unchanged as per user) ---
+            const lyricsContent = [
                 { time: 2000, text: "Hathon ke tere apne", duration: 3000 },
                 { time: 5000, text: "Hathon me le leta hu", duration: 2500 },
                 { time: 7500, text: "ke taqderein", duration: 2000 },
                 { time: 9500, text: "Apni sari parh Lo", duration: 3000 }
             ];
 
-            // --- Page Navigation ---
-            btnNext.addEventListener('click', () => {
-                pageLanding.classList.remove('is-visible');
-                pageConfirm.classList.add('is-visible');
-            });
+            // --- New Multi-Step Navigation ---
+            function showPage(pageKey) {
+                Object.values(pages).forEach(page => page.classList.remove('is-showing'));
+                pages[pageKey].classList.add('is-showing');
+            }
 
-            btnConfirm.addEventListener('click', () => {
-                pageConfirm.classList.remove('is-visible');
-                pageLyrics.classList.add('is-visible');
+            buttons.welcome.addEventListener('click', () => showPage('confirm1'));
+            buttons.confirm1.addEventListener('click', () => showPage('confirm2'));
+            buttons.confirm2.addEventListener('click', () => showPage('finalPrompt'));
+            buttons.finalPrompt.addEventListener('click', () => {
+                showPage('lyrics');
                 startExperience();
             });
 
             // --- Main Experience Logic ---
             function startExperience() {
-                songPlayer.play().catch(e => console.error("Audio could not play:", e));
-                lyrics.forEach(line => {
-                    setTimeout(() => displayLyric(line.text, line.duration), line.time);
+                audioPlayer.play().catch(e => console.error("Audio Error:", e));
+                lyricsContent.forEach(line => {
+                    setTimeout(() => renderLyric(line.text, line.duration), line.time);
                 });
             }
 
             // --- Lyric Display Function ---
-            function displayLyric(text, duration) {
+            function renderLyric(text, duration) {
                 const lyricEl = document.createElement('p');
-                lyricEl.className = 'lyric-line';
+                lyricEl.className = 'lyric-text-line';
                 lyricEl.textContent = text;
                 
-                lyricContainer.innerHTML = ''; // Clear previous
-                lyricContainer.appendChild(lyricEl);
+                lyricDisplayArea.innerHTML = '';
+                lyricDisplayArea.appendChild(lyricEl);
 
-                // Use a short delay to trigger the CSS transition
-                setTimeout(() => lyricEl.classList.add('is-showing'), 50);
-                
-                // Hide the lyric before the next one
-                setTimeout(() => lyricEl.classList.remove('is-showing'), duration - 500);
+                setTimeout(() => lyricEl.classList.add('is-visible'), 50);
+                setTimeout(() => lyricEl.classList.remove('is-visible'), duration - 500);
             }
             
             // --- Exit Sequence ---
-            songPlayer.addEventListener('ended', () => {
-                lyricContainer.innerHTML = '';
-                finalCurtain.style.display = 'flex';
-
-                setTimeout(() => {
-                    document.body.classList.add('is-exiting');
-                }, 2000);
+            audioPlayer.addEventListener('ended', () => {
+                lyricDisplayArea.innerHTML = '';
+                finalOverlay.style.display = 'flex';
+                setTimeout(() => document.body.classList.add('is-fading-out'), 2000);
             });
 
             // --- Dynamic Star Generation ---
             function createStars() {
-                for (let i = 0; i < 150; i++) {
+                for (let i = 0; i < 50; i++) { // Fewer, more impactful stars
                     const star = document.createElement('div');
-                    const size = Math.random() * 2.5 + 1;
+                    const width = Math.random() * 150 + 50;
                     star.className = 'star';
-                    star.style.width = `${size}px`;
-                    star.style.height = `${size}px`;
+                    star.style.width = `${width}px`;
+                    star.style.height = `1px`;
                     star.style.top = `${Math.random() * 100}%`;
-                    star.style.left = `${Math.random() * 100}%`;
-                    star.style.animationDelay = `${Math.random() * 12}s`;
-                    star.style.animationDuration = `${Math.random() * 8 + 8}s`;
-                    starsCanvas.appendChild(star);
+                    star.style.left = `${Math.random() * 100 + 100}%`; // Start off-screen
+                    const duration = Math.random() * 10 + 10;
+                    const delay = Math.random() * 15;
+                    star.style.animationDuration = `${duration}s`;
+                    star.style.animationDelay = `${delay}s`;
+                    shootingStarsContainer.appendChild(star);
                 }
             }
             createStars();
