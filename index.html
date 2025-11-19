@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Message For You</title>
     <style>
-        /* --- 🎨 FONT IMPORTS & GLOBAL STYLES --- */
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito+Sans:wght@400;700&family=Dancing+Script:wght@700&display=swap');
+        /* --- 🎨 NEW "GOLDEN TWILIGHT" THEME & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Poppins:wght@300;500&display=swap');
 
         :root {
-            --bg-color: #0d041c;
-            --glow-color-pink: #ff79c6;
-            --glow-color-purple: #bd93f9;
-            --text-color: #f8f8f2;
-            --moon-color: #f1fa8c;
-            --star-color: #ffffff;
-            --cloud-color: rgba(255, 255, 255, 0.05);
+            --bg-dark-indigo: #1e1935;
+            --bg-twilight-purple: #3a325a;
+            --glow-gold: #ffc278;
+            --glow-soft-gold: #ffe8d1;
+            --text-cream: #f5f2f8;
         }
 
         *, *::before, *::after {
@@ -28,143 +26,139 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: var(--bg-color);
-            font-family: 'Nunito Sans', sans-serif;
-            color: var(--text-color);
-            transition: opacity 2s ease-in-out;
+            background-color: var(--bg-dark-indigo);
+            font-family: 'Poppins', sans-serif; /* New UI Font */
+            color: var(--text-cream);
+            transition: opacity 2.5s ease-in-out;
         }
 
         body.exiting {
             opacity: 0;
         }
 
-        /* --- 🌃 AESTHETIC BACKGROUND & ANIMATIONS --- */
+        /* --- 🌃 NEW BACKGROUND DESIGN & ANIMATIONS --- */
         .background-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+            background: linear-gradient(to top, var(--bg-dark-indigo) 0%, #2c254d 100%);
             overflow: hidden;
         }
         .stars { position: absolute; width: 100%; height: 100%; }
-        .star { position: absolute; background-color: var(--star-color); border-radius: 50%; animation: twinkle 7s infinite ease-in-out; box-shadow: 0 0 6px #fff, 0 0 12px #fff; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(0.6); } 50% { opacity: 1; transform: scale(1); } }
+        .star { 
+            position: absolute; background-color: var(--glow-soft-gold); border-radius: 50%; 
+            animation: star-flicker 10s infinite ease-in-out; 
+            box-shadow: 0 0 5px var(--glow-soft-gold), 0 0 10px var(--glow-soft-gold); 
+        }
+        @keyframes star-flicker { 0%, 100% { opacity: 0.2; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
         
         .moon { 
-            position: absolute; top: 8%; right: 12%; width: 70px; height: 70px; background-color: var(--moon-color); 
-            border-radius: 50%; 
-            box-shadow: 0 0 25px var(--moon-color), 0 0 50px var(--moon-color), 0 0 80px #fff; 
-            animation: moon-float 8s infinite ease-in-out; 
+            position: absolute; top: 10%; right: 15%; width: 75px; height: 75px; 
+            border-radius: 50%;
+            box-shadow: inset -20px 0px 0 0 var(--glow-gold); /* Crescent moon shape */
+            animation: moon-drift 10s infinite ease-in-out; 
+            filter: drop-shadow(0 0 15px var(--glow-gold));
         }
-        @keyframes moon-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes moon-drift { 0%, 100% { transform: translateY(0) rotate(-10deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
         
-        .clouds { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .cloud { position: absolute; background: var(--cloud-color); border-radius: 50%; opacity: 0.5; filter: blur(15px); animation: drift linear infinite; }
-        @keyframes drift { from { transform: translateX(-300px); } to { transform: translateX(100vw); } }
-
-        .trees { 
-            position: absolute; bottom: -10px; left: 0; width: 100%; height: 160px; z-index: 5;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="%2306030a" points="0,100 20,20 30,80 50,10 60,60 80,30 100,100"/></svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="%230b0613" points="0,100 15,30 25,70 45,20 55,50 75,40 100,100"/></svg>'); 
-            background-repeat: repeat-x; background-position: 0 100%, 50px 100%; 
-            background-size: 200px 100px, 150px 80px; 
-            animation: sway 15s infinite ease-in-out;
-            transform-origin: bottom center;
+        .clouds { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; }
+        .cloud { 
+            position: absolute; background: linear-gradient(to top, rgba(255, 194, 120, 0.05), rgba(255, 194, 120, 0));
+            border-radius: 50%; opacity: 0.8; 
+            animation: cloud-movement linear infinite;
         }
-        @keyframes sway { 0%, 100% { transform: skewX(-2deg); } 50% { transform: skewX(2deg); } }
+        @keyframes cloud-movement { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
 
-        /* --- 📄 PAGE CONTAINER & TRANSITIONS --- */
-        .page { width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; position: absolute; top: 0; left: 0; opacity: 0; visibility: hidden; transform: scale(1.05); transition: opacity 0.8s ease-in-out, visibility 0.8s, transform 0.8s ease-in-out; }
-        .page.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .trees { position: absolute; bottom: -5px; left: 0; width: 100%; height: 150px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 100"><path d="M0 100 L0 80 Q 50 20, 100 80 T 200 80 T 300 80 T 400 80 T 500 80 T 600 80 T 700 80 T 800 80 L 800 100 Z" fill="%230e0b1a"/></svg>') repeat-x; background-size: cover; z-index: 10; }
+
+        /* --- 📄 NEW PAGE CONTAINER & TRANSITIONS --- */
+        .page { 
+            width: 100%; height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; padding: 20px; 
+            position: absolute; top: 0; left: 0; z-index: 5;
+            opacity: 0; visibility: hidden; 
+            transform: translateY(20px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+        .page.active { opacity: 1; visibility: visible; transform: translateY(0); }
         
-        /* --- 🐻 PAGE 1: CUTE BEAR SCREEN --- */
-        .bear-container {
-            position: relative;
-            animation: bear-bounce 3s infinite ease-in-out;
-        }
-        .bear { width: 150px; height: 150px; }
-        .bear-shadow {
-            width: 100px; height: 15px; background-color: rgba(0,0,0,0.3);
-            border-radius: 50%; filter: blur(10px);
-            position: absolute; bottom: -10px; left: 50%;
-            transform: translateX(-50%);
-            animation: shadow-pulse 3s infinite ease-in-out;
-        }
-        @keyframes bear-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        @keyframes shadow-pulse { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; } 50% { transform: translateX(-50%) scale(0.8); opacity: 0.7; } }
+        /* --- 🐻 PAGE 1: CUTE BEAR - REDESIGNED --- */
+        .bear { width: 160px; height: 160px; animation: soft-bounce 2.5s infinite ease-in-out; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));}
+        @keyframes soft-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         
         .handwriting-text { 
-            font-family: 'Caveat', cursive; font-size: 2.5rem; color: var(--text-color); 
-            text-shadow: 0 0 8px var(--glow-color-pink), 0 0 12px var(--glow-color-pink); 
-            margin-top: 20px; margin-bottom: 30px; animation: text-fade-in 2s ease-out forwards;
+            font-family: 'Marck Script', cursive; /* New Handwriting Font */
+            font-size: 2.8rem; color: var(--text-cream); 
+            text-shadow: 0 0 10px var(--glow-gold), 0 0 20px var(--glow-gold); 
+            margin-bottom: 35px; animation: fadeIn 2s ease-out forwards;
         }
-        @keyframes text-fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .ok-button { 
-            background: transparent; border: 2px solid var(--glow-color-pink); color: var(--text-color); 
-            padding: 12px 35px; font-size: 1.3rem; font-family: 'Nunito Sans', sans-serif; font-weight: bold; 
+        /* --- NEW BUTTON STYLE --- */
+        .styled-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 232, 209, 0.3);
+            backdrop-filter: blur(10px);
+            color: var(--text-cream); 
+            padding: 14px 40px; font-size: 1.2rem; font-weight: 500;
             border-radius: 50px; cursor: pointer; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; 
-            box-shadow: 0 0 10px var(--glow-color-pink), inset 0 0 10px var(--glow-color-pink); 
-            z-index: 20; animation: button-pulse 3s infinite;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 194, 120, 0.2);
+            text-shadow: 0 0 5px rgba(0,0,0,0.2);
         }
-        .ok-button:hover { transform: scale(1.1); background-color: rgba(255, 121, 198, 0.1); box-shadow: 0 0 20px var(--glow-color-pink), inset 0 0 15px var(--glow-color-pink); animation-play-state: paused; }
-        .ok-button:active { transform: scale(0.95); }
-        @keyframes button-pulse { 0%, 100% { box-shadow: 0 0 10px var(--glow-color-pink), inset 0 0 10px var(--glow-color-pink); } 50% { box-shadow: 0 0 18px var(--glow-color-pink), inset 0 0 14px var(--glow-color-pink); } }
+        .styled-button:hover { 
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--glow-soft-gold);
+            box-shadow: 0 0 20px rgba(255, 194, 120, 0.5);
+            transform: translateY(-3px);
+        }
+        .styled-button:active { transform: translateY(0); }
 
-        /* --- 🤔 PAGE 2: CONFIRMATION SCREEN --- */
+        /* --- 🤔 PAGE 2: CONFIRMATION - REDESIGNED --- */
         .confirmation-text { 
-            font-size: 2.2rem; margin-bottom: 40px; text-shadow: 0 0 8px var(--glow-color-purple); 
-            position: relative; z-index: 20; font-weight: bold; animation: dreamy-float 5s infinite ease-in-out;
+            font-size: 2.4rem; font-weight: 300;
+            margin-bottom: 40px; text-shadow: 0 0 8px rgba(245, 242, 248, 0.5); 
+            animation: float-in 6s infinite ease-in-out;
         }
-        @keyframes dreamy-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes float-in { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.02); } }
         
-        .yes-button { 
-            background-color: var(--glow-color-purple); border: none; color: var(--bg-color); 
-            padding: 20px 50px; font-size: 1.8rem; font-weight: bold; font-family: 'Nunito Sans', sans-serif; 
-            border-radius: 15px; cursor: pointer; 
-            box-shadow: 0 0 15px var(--glow-color-purple), 0 0 30px var(--glow-color-purple), 0 0 45px #fff; 
-            animation: pulse 2.5s infinite; transition: transform 0.3s ease; position: relative; z-index: 20; 
-        }
-        .yes-button:hover { transform: scale(1.1); animation-play-state: paused; }
-        .yes-button:active { transform: scale(0.95); }
-        @keyframes pulse { 0% { box-shadow: 0 0 15px var(--glow-color-purple), 0 0 30px var(--glow-color-purple), 0 0 45px #fff; } 50% { box-shadow: 0 0 25px var(--glow-color-purple), 0 0 50px var(--glow-color-purple), 0 0 70px #fff; } 100% { box-shadow: 0 0 15px var(--glow-color-purple), 0 0 30px var(--glow-color-purple), 0 0 45px #fff; } }
-
-        /* --- 🎶 PAGE 3: LYRICS SCREEN --- */
+        /* --- 🎶 PAGE 3: LYRICS - NEW STYLE & ANIMATION --- */
         #lyrics-container { 
-            font-family: 'Dancing Script', cursive; font-size: 3.5rem; 
-            color: var(--text-color); height: 120px; 
-            position: relative; z-index: 20; 
+            font-family: 'Marck Script', cursive; /* Using new cursive font */
+            font-size: 3.8rem; 
+            font-weight: bold;
+            color: var(--text-cream); 
+            height: 150px; 
             display: flex; align-items: center; justify-content: center;
         }
         .lyric-line {
-            position: absolute; width: 100%; left: 0; text-align: center;
-            opacity: 0;
+            position: absolute; opacity: 0;
         }
-        .lyric-line.show { animation: glowIn 1s forwards ease-in-out; }
-        .lyric-line.hide { animation: glowOut 0.8s forwards ease-in-out; }
+        /* New Animation: Materialize from golden dust */
+        .lyric-line.show { animation: materialize 1.2s forwards ease-out; }
+        .lyric-line.hide { animation: dematerialize 1s forwards ease-in; }
         
-        @keyframes glowIn {
-            from { opacity: 0; transform: scale(0.8); text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-            to { opacity: 1; transform: scale(1.1); text-shadow: 0 0 10px #fff, 0 0 20px var(--glow-color-pink), 0 0 35px var(--glow-color-pink); }
+        @keyframes materialize {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(10px) brightness(3); text-shadow: 0 0 30px var(--glow-gold); }
+            to { opacity: 1; transform: scale(1); filter: blur(0) brightness(1); text-shadow: 0 0 15px var(--glow-gold); }
         }
-        @keyframes glowOut {
-            from { opacity: 1; transform: scale(1.1); text-shadow: 0 0 10px #fff, 0 0 20px var(--glow-color-pink), 0 0 35px var(--glow-color-pink); }
-            to { opacity: 0; transform: scale(0.8); text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+        @keyframes dematerialize {
+            from { opacity: 1; transform: scale(1); filter: blur(0) brightness(1); text-shadow: 0 0 15px var(--glow-gold); }
+            to { opacity: 0; transform: scale(0.9) translateY(-20px); filter: blur(10px) brightness(3); text-shadow: 0 0 30px var(--glow-gold); }
         }
 
         /* --- 📱 RESPONSIVE DESIGN --- */
         @media (max-width: 600px) {
-            .bear { width: 120px; height: 120px; }
-            .bear-shadow { width: 80px; }
-            .handwriting-text { font-size: 2rem; }
-            .confirmation-text { font-size: 1.8rem; text-align: center; }
-            #lyrics-container { font-size: 2.5rem; }
+            .bear { width: 130px; height: 130px; }
+            .handwriting-text { font-size: 2.2rem; }
+            .confirmation-text { font-size: 1.9rem; text-align: center; }
+            #lyrics-container { font-size: 2.6rem; }
             .moon { width: 60px; height: 60px; }
-            .yes-button { padding: 15px 40px; }
+            .styled-button { padding: 12px 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 🌃 This container holds all the animated background elements -->
+    <!-- Background elements are always active, ensuring they are visible from the start -->
     <div class="background-container">
         <div class="stars" id="stars-container"></div>
         <div class="moon"></div>
@@ -173,29 +167,26 @@
     </div>
 
     <main class="main-content">
-        <!-- 🟣 PAGE 1 — CUTE ANIMATED BEAR SCREEN -->
+        <!-- 🟣 PAGE 1 — CUTE BEAR SCREEN (REDESIGNED) -->
         <section id="page1" class="page active">
-            <div class="bear-container">
-                <img src="https://i.pinimg.com/originals/c7/a5/36/c7a5362e493396f5b9671b29a282f65f.gif" alt="Cute Animated Bear" class="bear">
-                <div class="bear-shadow"></div>
-            </div>
+            <img src="https://i.pinimg.com/originals/c7/a5/36/c7a5362e493396f5b9671b29a282f65f.gif" alt="Cute Animated Bear" class="bear">
             <h1 class="handwriting-text">This is only for you..</h1>
-            <button id="ok-button" class="ok-button">OK</button>
+            <button id="ok-button" class="styled-button">OK</button>
         </section>
 
-        <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN -->
+        <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN (REDESIGNED) -->
         <section id="page2" class="page">
             <h2 class="confirmation-text">Are you sure you want to see?</h2>
-            <button id="yes-button" class="yes-button">YES</button>
+            <button id="yes-button" class="styled-button">YES</button>
         </section>
 
-        <!-- 🟢 PAGE 3 — ANIMATED LYRICS DISPLAY -->
+        <!-- 🟢 PAGE 3 — ANIMATED LYRICS DISPLAY (REDESIGNED) -->
         <section id="page3" class="page">
             <div id="lyrics-container"></div>
         </section>
     </main>
     
-    <!-- 🎵 The hidden audio player -->
+    <!-- 🎵 Hidden audio player, as requested -->
     <audio id="song" src="./haroon.mp3" preload="auto"></audio>
 
     <script>
@@ -210,24 +201,20 @@
             const audio = document.getElementById('song');
             const lyricsContainer = document.getElementById('lyrics-container');
 
-            // --- 🎵 LYRICS & TIMING DATA --- //
-            // This array holds the text, start time, and duration for each lyric line.
+            // --- 🎵 LYRICS & TIMING DATA (1-second delay added to each line) --- //
             const lyrics = [
-                { time: 2000, text: "Hathon ke tere apne", duration: 3000 },
-                { time: 5000, text: "Hathon me le leta hu", duration: 2000 },
-                { time: 7000, text: "ke taqderein", duration: 2000 },
-                { time: 9000, text: "Apni sari parh Lo", duration: 3000 }
+                { time: 3000, text: "Hathon ke tere apne", duration: 3000 },   // Was 2000
+                { time: 6000, text: "Hathon me le leta hu", duration: 2000 },   // Was 5000
+                { time: 8000, text: "ke taqderein", duration: 2000 },            // Was 7000
+                { time: 10000, text: "Apni sari parh Lo", duration: 3000 }      // Was 9000
             ];
 
             // --- 🔄 PAGE TRANSITION LOGIC --- //
-            
-            // Event listener for the "OK" button on Page 1
             okButton.addEventListener('click', () => {
                 page1.classList.remove('active');
                 page2.classList.add('active');
             });
 
-            // Event listener for the "YES" button on Page 2
             yesButton.addEventListener('click', () => {
                 page2.classList.remove('active');
                 page3.classList.add('active');
@@ -235,60 +222,33 @@
             });
 
             // --- 🎶 LYRICS & AUDIO SYNCHRONIZATION --- //
-            
-            /**
-             * Plays the audio and schedules the display of each lyric line.
-             */
             function startExperience() {
-                // Attempt to play the audio. User interaction should allow this.
                 audio.play().catch(error => console.error("Audio playback failed:", error));
-                
-                // Use setTimeout to schedule each lyric line to appear at the correct time.
                 lyrics.forEach(line => {
                     setTimeout(() => displayLyric(line.text, line.duration), line.time);
                 });
             }
 
-            /**
-             * Displays a single lyric line and schedules its removal.
-             * @param {string} text - The lyric text to show.
-             * @param {number} duration - How long (in ms) the lyric should be visible.
-             */
             function displayLyric(text, duration) {
                 const lyricLine = document.createElement('div');
                 lyricLine.className = 'lyric-line';
                 lyricLine.textContent = text;
-                
-                // Clear any previous lyrics and add the new one
-                lyricsContainer.innerHTML = '';
+                lyricsContainer.innerHTML = ''; // Clear previous lyrics
                 lyricsContainer.appendChild(lyricLine);
 
-                // A tiny delay ensures the CSS animation triggers correctly
                 setTimeout(() => lyricLine.classList.add('show'), 50);
-                
-                // Schedule the fade-out animation just before the line's duration ends
                 setTimeout(() => {
                     lyricLine.classList.remove('show');
                     lyricLine.classList.add('hide');
-                }, duration - 400); // Fade out 400ms before it's gone
+                }, duration - 500); // Fade out 500ms before it's gone
             }
             
-            // --- 🚪 EXIT LOGIC AFTER SONG ENDS --- //
-            
-            // When the audio finishes playing, fade out the entire page.
+            // --- 🚪 EXIT LOGIC --- //
             audio.addEventListener('ended', () => {
                 document.body.classList.add('exiting');
             });
 
             // --- 🌌 DYNAMIC BACKGROUND GENERATION --- //
-            
-            /**
-             * A helper function to create and place dynamic elements like stars and clouds.
-             * @param {HTMLElement} container - The parent element.
-             * @param {number} count - The number of elements to create.
-             * @param {string} className - The CSS class to apply to each element.
-             * @param {Function} randomizer - A function to apply random styles.
-             */
             function generateDynamicElements(container, count, className, randomizer) {
                 for (let i = 0; i < count; i++) {
                     const el = document.createElement('div');
@@ -297,21 +257,17 @@
                     container.appendChild(el);
                 }
             }
-            
-            // Generate Stars
+
             const starsContainer = document.getElementById('stars-container');
             generateDynamicElements(starsContainer, 150, 'star', (el) => {
-                const size = Math.random() * 2.5 + 1;
-                el.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation-delay:${Math.random()*7}s; animation-duration:${Math.random()*5+5}s;`;
+                const size = Math.random() * 2 + 1;
+                el.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation-delay:${Math.random()*10}s; animation-duration:${Math.random()*7+8}s;`;
             });
-            
-            // Generate Clouds
+
             const cloudsContainer = document.getElementById('clouds-container');
-            generateDynamicElements(cloudsContainer, 12, 'cloud', (el) => {
-                const size = Math.random() * 200 + 80;
-                // Start clouds off-screen for a more natural entry
-                const startPosition = -300 + (Math.random() * 600);
-                el.style.cssText = `width:${size*1.5}px; height:${size}px; top:${Math.random()*25}%; left:${startPosition}px; animation-duration:${Math.random()*60+80}s; animation-delay:-${Math.random()*80}s;`;
+            generateDynamicElements(cloudsContainer, 10, 'cloud', (el) => {
+                const size = Math.random() * 300 + 150;
+                el.style.cssText = `width:${size}px; height:${size}px; bottom:${-size/2}px; left:0px; animation-duration:${Math.random()*80+90}s; animation-delay:-${Math.random()*90}s;`;
             });
         });
     </script>
