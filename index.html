@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Message For You</title>
+    <title>A Cosmic Dream For You</title>
     <style>
-        /* --- 🎨 NEW "GOLDEN TWILIGHT" THEME & FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Poppins:wght@300;500&display=swap');
+        /* --- 🎨 NEW "COSMIC DREAM" THEME & FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;500&display=swap');
 
         :root {
-            --bg-dark-indigo: #1e1935;
-            --bg-twilight-purple: #3a325a;
-            --glow-gold: #ffc278;
-            --glow-soft-gold: #ffe8d1;
-            --text-cream: #f5f2f8;
+            --bg-deep-space: #0b0222;
+            --glow-magenta: #ff00aa;
+            --glow-cyan: #00ffff;
+            --text-light: #e8e0ff;
         }
 
         *, *::before, *::after {
@@ -26,9 +25,9 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: var(--bg-dark-indigo);
-            font-family: 'Poppins', sans-serif; /* New UI Font */
-            color: var(--text-cream);
+            background-color: var(--bg-deep-space);
+            font-family: 'Montserrat', sans-serif; /* New UI Font */
+            color: var(--text-light);
             transition: opacity 2.5s ease-in-out;
         }
 
@@ -36,148 +35,175 @@
             opacity: 0;
         }
 
-        /* --- 🌃 NEW BACKGROUND DESIGN & ANIMATIONS --- */
+        /* --- 🌃 NEW "COSMIC" BACKGROUND & ANIMATIONS --- */
         .background-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-            background: linear-gradient(to top, var(--bg-dark-indigo) 0%, #2c254d 100%);
+            background: linear-gradient(to top, var(--bg-deep-space) 0%, #1a0f3d 100%);
             overflow: hidden;
         }
         .stars { position: absolute; width: 100%; height: 100%; }
         .star { 
-            position: absolute; background-color: var(--glow-soft-gold); border-radius: 50%; 
-            animation: star-flicker 10s infinite ease-in-out; 
-            box-shadow: 0 0 5px var(--glow-soft-gold), 0 0 10px var(--glow-soft-gold); 
+            position: absolute; background-color: var(--text-light); border-radius: 50%; 
+            animation: star-pulse 10s infinite ease-in-out; 
         }
-        @keyframes star-flicker { 0%, 100% { opacity: 0.2; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
+        @keyframes star-pulse { 0%, 100% { opacity: 0.2; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
         
-        .moon { 
-            position: absolute; top: 10%; right: 15%; width: 75px; height: 75px; 
+        .planet { 
+            position: absolute; top: 12%; right: 15%; width: 80px; height: 80px; 
             border-radius: 50%;
-            box-shadow: inset -20px 0px 0 0 var(--glow-gold); /* Crescent moon shape */
-            animation: moon-drift 10s infinite ease-in-out; 
-            filter: drop-shadow(0 0 15px var(--glow-gold));
+            background: radial-gradient(circle at 30% 30%, #e8e0ff, #9f7ed1);
+            box-shadow: 0 0 20px #9f7ed1, inset -10px -10px 20px rgba(0,0,0,0.3);
+            animation: planet-rotate 25s infinite linear; 
         }
-        @keyframes moon-drift { 0%, 100% { transform: translateY(0) rotate(-10deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
+        .planet::before { /* Planet Ring */
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 180%; height: 180%; border-radius: 50%;
+            border: 4px solid rgba(232, 224, 255, 0.5);
+            transform: translate(-50%, -50%) rotateX(70deg) rotateZ(10deg);
+        }
+        @keyframes planet-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         
-        .clouds { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; }
-        .cloud { 
-            position: absolute; background: linear-gradient(to top, rgba(255, 194, 120, 0.05), rgba(255, 194, 120, 0));
-            border-radius: 50%; opacity: 0.8; 
-            animation: cloud-movement linear infinite;
-        }
-        @keyframes cloud-movement { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
-
-        .trees { position: absolute; bottom: -5px; left: 0; width: 100%; height: 150px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 100"><path d="M0 100 L0 80 Q 50 20, 100 80 T 200 80 T 300 80 T 400 80 T 500 80 T 600 80 T 700 80 T 800 80 L 800 100 Z" fill="%230e0b1a"/></svg>') repeat-x; background-size: cover; z-index: 10; }
-
+        .nebula { position: absolute; width: 100vw; height: 100vh; filter: blur(80px); opacity: 0.4; }
+        .nebula.one { background: radial-gradient(circle at 20% 80%, var(--glow-magenta), transparent); animation: nebula-drift 40s infinite alternate; }
+        .nebula.two { background: radial-gradient(circle at 80% 30%, var(--glow-cyan), transparent); animation: nebula-drift 35s infinite alternate-reverse; }
+        @keyframes nebula-drift { from { transform: translateX(-10%) translateY(5%) scale(1); } to { transform: translateX(10%) translateY(-5%) scale(1.2); } }
+        
         /* --- 📄 NEW PAGE CONTAINER & TRANSITIONS --- */
         .page { 
             width: 100%; height: 100vh; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; padding: 20px; 
             position: absolute; top: 0; left: 0; z-index: 5;
             opacity: 0; visibility: hidden; 
-            transform: translateY(20px);
+            transform: scale(0.95);
             transition: opacity 1.2s ease-out, transform 1.2s ease-out;
         }
-        .page.active { opacity: 1; visibility: visible; transform: translateY(0); }
+        .page.active { opacity: 1; visibility: visible; transform: scale(1); }
         
-        /* --- 🐻 PAGE 1: CUTE BEAR - REDESIGNED --- */
-        .bear { width: 160px; height: 160px; animation: soft-bounce 2.5s infinite ease-in-out; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));}
-        @keyframes soft-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        
-        .handwriting-text { 
-            font-family: 'Marck Script', cursive; /* New Handwriting Font */
-            font-size: 2.8rem; color: var(--text-cream); 
-            text-shadow: 0 0 10px var(--glow-gold), 0 0 20px var(--glow-gold); 
-            margin-bottom: 35px; animation: fadeIn 2s ease-out forwards;
+        /* --- 🐻 PAGE 1: EMOJI SCREEN - REDESIGNED --- */
+        .landing-emoji {
+            font-size: 100px;
+            animation: emoji-float 4s infinite ease-in-out;
+            text-shadow: 0 0 15px var(--glow-magenta), 0 0 30px var(--glow-magenta);
+            margin-bottom: 20px;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes emoji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        /* --- NEW BUTTON STYLE --- */
-        .styled-button {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 232, 209, 0.3);
-            backdrop-filter: blur(10px);
-            color: var(--text-cream); 
-            padding: 14px 40px; font-size: 1.2rem; font-weight: 500;
-            border-radius: 50px; cursor: pointer; 
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 194, 120, 0.2);
-            text-shadow: 0 0 5px rgba(0,0,0,0.2);
+        .handwriting-text { 
+            font-family: 'Pacifico', cursive; /* New Handwriting Font */
+            font-size: 2.8rem; color: var(--text-light); 
+            text-shadow: 0 0 10px var(--glow-magenta), 0 0 20px var(--glow-cyan); 
+            margin-bottom: 40px;
         }
-        .styled-button:hover { 
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--glow-soft-gold);
-            box-shadow: 0 0 20px rgba(255, 194, 120, 0.5);
-            transform: translateY(-3px);
+        
+        /* --- NEW HOLOGRAPHIC BUTTON STYLE --- */
+        .cosmic-button {
+            position: relative; background: transparent; border: none;
+            color: var(--text-light); padding: 15px 45px; font-size: 1.2rem;
+            font-weight: 500; border-radius: 50px; cursor: pointer;
+            overflow: hidden; transition: transform 0.3s ease;
         }
-        .styled-button:active { transform: translateY(0); }
+        .cosmic-button-inner {
+            background: rgba(11, 2, 34, 0.7); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute; inset: 0; border-radius: 50px;
+        }
+        .cosmic-button-text { position: relative; z-index: 2; }
+        .cosmic-button::before { /* Animated Gradient Border */
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(from var(--angle), transparent 0%, var(--glow-cyan), var(--glow-magenta), transparent 25%);
+            animation: spin 6s linear infinite;
+            transform: translate(-50%, -50%);
+        }
+        @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        @keyframes spin { to { --angle: 360deg; } }
+        .cosmic-button:hover { transform: scale(1.05); }
+        .cosmic-button:active { transform: scale(0.98); }
+
+        .instagram-handle {
+            position: absolute; bottom: 20px;
+            font-size: 0.9rem; font-weight: 300; letter-spacing: 1px;
+            opacity: 0.5;
+        }
 
         /* --- 🤔 PAGE 2: CONFIRMATION - REDESIGNED --- */
         .confirmation-text { 
             font-size: 2.4rem; font-weight: 300;
-            margin-bottom: 40px; text-shadow: 0 0 8px rgba(245, 242, 248, 0.5); 
-            animation: float-in 6s infinite ease-in-out;
+            margin-bottom: 40px; text-align: center;
         }
-        @keyframes float-in { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.02); } }
         
         /* --- 🎶 PAGE 3: LYRICS - NEW STYLE & ANIMATION --- */
         #lyrics-container { 
-            font-family: 'Marck Script', cursive; /* Using new cursive font */
-            font-size: 3.8rem; 
-            font-weight: bold;
-            color: var(--text-cream); 
-            height: 150px; 
+            font-family: 'Pacifico', cursive;
+            font-size: 3.8rem;
+            height: 150px;
             display: flex; align-items: center; justify-content: center;
         }
         .lyric-line {
             position: absolute; opacity: 0;
+            text-shadow: 0 0 10px var(--glow-magenta), 0 0 20px var(--glow-cyan);
         }
-        /* New Animation: Materialize from golden dust */
-        .lyric-line.show { animation: materialize 1.2s forwards ease-out; }
-        .lyric-line.hide { animation: dematerialize 1s forwards ease-in; }
+        .lyric-line.show { animation: shimmer-in 1s forwards ease-out; }
+        .lyric-line.hide { animation: shimmer-out 0.8s forwards ease-in; }
         
-        @keyframes materialize {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(10px) brightness(3); text-shadow: 0 0 30px var(--glow-gold); }
-            to { opacity: 1; transform: scale(1); filter: blur(0) brightness(1); text-shadow: 0 0 15px var(--glow-gold); }
+        @keyframes shimmer-in {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
-        @keyframes dematerialize {
-            from { opacity: 1; transform: scale(1); filter: blur(0) brightness(1); text-shadow: 0 0 15px var(--glow-gold); }
-            to { opacity: 0; transform: scale(0.9) translateY(-20px); filter: blur(10px) brightness(3); text-shadow: 0 0 30px var(--glow-gold); }
+        @keyframes shimmer-out {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.9); }
         }
+
+        /* --- 😘 END SCREEN --- */
+        #end-screen {
+            position: fixed; inset: 0; z-index: 100;
+            display: none; justify-content: center; align-items: center;
+            opacity: 0; animation: end-glow-in 2s forwards;
+        }
+        #end-emoji { font-size: 150px; text-shadow: 0 0 50px var(--glow-magenta); }
+        @keyframes end-glow-in { to { opacity: 1; } }
 
         /* --- 📱 RESPONSIVE DESIGN --- */
         @media (max-width: 600px) {
-            .bear { width: 130px; height: 130px; }
+            .landing-emoji { font-size: 80px; }
             .handwriting-text { font-size: 2.2rem; }
-            .confirmation-text { font-size: 1.9rem; text-align: center; }
+            .confirmation-text { font-size: 1.9rem; }
             #lyrics-container { font-size: 2.6rem; }
-            .moon { width: 60px; height: 60px; }
-            .styled-button { padding: 12px 30px; }
+            .planet { width: 60px; height: 60px; }
+            .cosmic-button { padding: 12px 35px; }
+            #end-emoji { font-size: 100px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background elements are always active, ensuring they are visible from the start -->
     <div class="background-container">
+        <div class="nebula one"></div>
+        <div class="nebula two"></div>
         <div class="stars" id="stars-container"></div>
-        <div class="moon"></div>
-        <div class="clouds" id="clouds-container"></div>
-        <div class="trees"></div>
+        <div class="planet"></div>
     </div>
 
     <main class="main-content">
-        <!-- 🟣 PAGE 1 — CUTE BEAR SCREEN (REDESIGNED) -->
+        <!-- 🟣 PAGE 1 — EMOJI SCREEN (REDESIGNED) -->
         <section id="page1" class="page active">
-            <img src="https://i.pinimg.com/originals/c7/a5/36/c7a5362e493396f5b9671b29a282f65f.gif" alt="Cute Animated Bear" class="bear">
+            <span class="landing-emoji">💖</span>
             <h1 class="handwriting-text">This is only for you..</h1>
-            <button id="ok-button" class="styled-button">OK</button>
+            <button id="ok-button" class="cosmic-button">
+                <div class="cosmic-button-inner"></div>
+                <span class="cosmic-button-text">OK</span>
+            </button>
+            <p class="instagram-handle">@ih4roon</p>
         </section>
 
         <!-- 🟡 PAGE 2 — CONFIRMATION SCREEN (REDESIGNED) -->
         <section id="page2" class="page">
             <h2 class="confirmation-text">Are you sure you want to see?</h2>
-            <button id="yes-button" class="styled-button">YES</button>
+            <button id="yes-button" class="cosmic-button">
+                <div class="cosmic-button-inner"></div>
+                <span class="cosmic-button-text">YES</span>
+            </button>
         </section>
 
         <!-- 🟢 PAGE 3 — ANIMATED LYRICS DISPLAY (REDESIGNED) -->
@@ -186,13 +212,16 @@
         </section>
     </main>
     
-    <!-- 🎵 Hidden audio player, as requested -->
+    <!-- 😘 FINAL EMOJI SCREEN -->
+    <div id="end-screen">
+        <span id="end-emoji">😘</span>
+    </div>
+
     <audio id="song" src="./haroon.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- ⚙️ ELEMENT SELECTORS --- //
             const page1 = document.getElementById('page1');
             const page2 = document.getElementById('page2');
             const page3 = document.getElementById('page3');
@@ -200,13 +229,14 @@
             const yesButton = document.getElementById('yes-button');
             const audio = document.getElementById('song');
             const lyricsContainer = document.getElementById('lyrics-container');
+            const endScreen = document.getElementById('end-screen');
 
-            // --- 🎵 LYRICS & TIMING DATA (1-second delay added to each line) --- //
+            // --- 🎵 LYRICS & TIMING DATA (1-second delay included) --- //
             const lyrics = [
-                { time: 3000, text: "Hathon ke tere apne", duration: 3000 },   // Was 2000
-                { time: 6000, text: "Hathon me le leta hu", duration: 2000 },   // Was 5000
-                { time: 8000, text: "ke taqderein", duration: 2000 },            // Was 7000
-                { time: 10000, text: "Apni sari parh Lo", duration: 3000 }      // Was 9000
+                { time: 3000, text: "Hathon ke tere apne", duration: 3000 },
+                { time: 6000, text: "Hathon me le leta hu", duration: 2000 },
+                { time: 8000, text: "ke taqderein", duration: 2000 },
+                { time: 10000, text: "Apni sari parh Lo", duration: 3000 }
             ];
 
             // --- 🔄 PAGE TRANSITION LOGIC --- //
@@ -233,19 +263,25 @@
                 const lyricLine = document.createElement('div');
                 lyricLine.className = 'lyric-line';
                 lyricLine.textContent = text;
-                lyricsContainer.innerHTML = ''; // Clear previous lyrics
+                lyricsContainer.innerHTML = '';
                 lyricsContainer.appendChild(lyricLine);
 
                 setTimeout(() => lyricLine.classList.add('show'), 50);
                 setTimeout(() => {
                     lyricLine.classList.remove('show');
                     lyricLine.classList.add('hide');
-                }, duration - 500); // Fade out 500ms before it's gone
+                }, duration - 400);
             }
             
-            // --- 🚪 EXIT LOGIC --- //
+            // --- 🚪 EXIT LOGIC AFTER SONG ENDS --- //
             audio.addEventListener('ended', () => {
-                document.body.classList.add('exiting');
+                lyricsContainer.innerHTML = ''; // Clear final lyric
+                endScreen.style.display = 'flex'; // Show kiss emoji screen
+
+                // Wait 2 seconds then fade out the whole page
+                setTimeout(() => {
+                    document.body.classList.add('exiting');
+                }, 2000);
             });
 
             // --- 🌌 DYNAMIC BACKGROUND GENERATION --- //
@@ -261,13 +297,8 @@
             const starsContainer = document.getElementById('stars-container');
             generateDynamicElements(starsContainer, 150, 'star', (el) => {
                 const size = Math.random() * 2 + 1;
-                el.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation-delay:${Math.random()*10}s; animation-duration:${Math.random()*7+8}s;`;
-            });
-
-            const cloudsContainer = document.getElementById('clouds-container');
-            generateDynamicElements(cloudsContainer, 10, 'cloud', (el) => {
-                const size = Math.random() * 300 + 150;
-                el.style.cssText = `width:${size}px; height:${size}px; bottom:${-size/2}px; left:0px; animation-duration:${Math.random()*80+90}s; animation-delay:-${Math.random()*90}s;`;
+                const glow = Math.random() > 0.5 ? 'var(--glow-cyan)' : 'var(--glow-magenta)';
+                el.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation-delay:${Math.random()*10}s; animation-duration:${Math.random()*7+8}s; box-shadow: 0 0 5px ${glow};`;
             });
         });
     </script>
